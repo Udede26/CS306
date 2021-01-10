@@ -70,10 +70,9 @@
           <strong>About</strong>
         </a>
         <a action="search.php" class="md-form mt-0" id="searchtime">
-    
-          <form action="search.php" method="POST">
+        <form action="search.php" method="POST">
             <input type="search" id="mysearch" name="mysearch" placeholder="Search" aria-label="Search">
-          </form>
+        </form>
         </a>
         <a href="#" class="navbar-brand d-flex align-items-center">
         </a>
@@ -133,22 +132,13 @@
     <div id="sidebar">
       <div>
         <h6 class="p-1 border-bottom">Category</h6>
-        <form class="ml-md-2">
-        <?php
-
-            $db = mysqli_connect('localhost', 'root', '', 'step4');
-            if ($db->connect_errno > 0) {
-              die('Baglanamadim [' . $db->connect_error . ']');
-            }
-
-            $result = mysqli_query($db, "SELECT * FROM Category");
-
-            while ($row = mysqli_fetch_assoc($result)) {
-              $category_name = $row['category_name'];
-              echo "<div class='form-inline border rounded p-md-2 my-2'> <input type='radio' name='type' id='notugly'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>$category_name</label> </div>";
-            }
-            ?>
-        </form>
+        <ul>
+          <li><a href="#">Living</a></li>
+          <li><a href="#">Dining</a></li>
+          <li><a href="#">Office</a></li>
+          <li><a href="#">Bedroom</a></li>
+          <li><a href="#">Kitchen</a></li>
+        </ul>
       </div>
       <div>
         <h6 class="p-1 border-bottom">Filter By</h6>
@@ -182,9 +172,16 @@
       if ($db->connect_errno > 0) {
         die('Baglanamadim [' . $db->connect_error . ']');
       }
+      
+      $word = $_POST['mysearch'];
 
-      $result = mysqli_query($db, "SELECT * FROM product");
-
+      $myquery = "SELECT P.product_name AS product_name, P.product_description AS product_description,P.brand AS brand, P.price AS price
+      FROM Product P, ProductCategory PC, Category C 
+      WHERE ((P.product_id = PC.product_id) AND (PC.category_id = C.category_id)) AND ((C.category_name LIKE '%$word%')
+       OR (P.product_name LIKE '%$word%') OR (P.product_description LIKE '%$word%') OR (P.brand LIKE '%$word%'))";
+        
+      $result = mysqli_query($db, $myquery);
+      
       while ($row = mysqli_fetch_assoc($result)) {
         $product_name = $row['product_name'];
         $description = $row['product_description'];
