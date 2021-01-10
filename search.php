@@ -132,13 +132,22 @@
     <div id="sidebar">
       <div>
         <h6 class="p-1 border-bottom">Category</h6>
-        <ul>
-          <li><a href="#">Living</a></li>
-          <li><a href="#">Dining</a></li>
-          <li><a href="#">Office</a></li>
-          <li><a href="#">Bedroom</a></li>
-          <li><a href="#">Kitchen</a></li>
-        </ul>
+        <form class="ml-md-2">
+        <?php
+
+            $db = mysqli_connect('localhost', 'root', '', 'step4');
+            if ($db->connect_errno > 0) {
+              die('Baglanamadim [' . $db->connect_error . ']');
+            }
+
+            $result = mysqli_query($db, "SELECT * FROM Category");
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              $category_name = $row['category_name'];
+              echo "<div class='form-inline border rounded p-md-2 my-2'> <input type='radio' name='type' id='notugly'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>$category_name</label> </div>";
+            }
+            ?>
+        </form>
       </div>
       <div>
         <h6 class="p-1 border-bottom">Filter By</h6>
@@ -234,7 +243,7 @@
       <p class="float-end mb-1">
         <a href="#">Back to top</a>
       </p>
-      <p class="mb-1"> All rights reserved to &copy;Ahmet ltd. AŞ. </p>
+      <p class="mb-1"> All rights reserved to &copy;BuyZone Group </p>
       <p class="mb-0">2020-2021 </p>
     </div>
   </footer>

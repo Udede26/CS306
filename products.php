@@ -237,7 +237,7 @@
       <p class="float-end mb-1">
         <a href="#">Back to top</a>
       </p>
-      <p class="mb-1"> All rights reserved to &copy;Ahmet ltd. AŞ. </p>
+      <p class="mb-1"> All rights reserved to &copy;BuyZone Group </p>
       <p class="mb-0">2020-2021 </p>
     </div>
   </footer>
