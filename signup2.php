@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //if(isset($_POST['']))
 include "config.php";
 
@@ -48,14 +48,18 @@ if ($sql_statement2)
  {
    //echo "Your account has been successfully created!"."<br>"."Redirecting to home page...";
     //header("Location: http://newPath/newPage.php/");
+   $_SESSION['user_signin_name'] = $fname ;
+   $_SESSION['user_signin_surname'] =$lname;
+   $_SESSION['users_id'] = $latest_user_id;
 
  echo("<script>alert('Your account has been successfully created!"."<br>"."Redirecting to home page...')</script>");
- echo("<script>window.location = 'home.html';</script>");
+ echo("<script>window.location = 'home.php';</script>");
  
 }
                 
  else
  {
+   
    //echo "Something went wrong :( Try again"."<br>"."Redirecting to login page...";
    //sleep(5);
   echo("<script>alert('Something went wrong :( Try again"."<br>"."Redirecting to login page...')</script>");
