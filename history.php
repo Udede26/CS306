@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>BuyZone</title>
+    <title>Album example · Bootstrap v5.0</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
@@ -49,8 +49,8 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-              <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
+              <li><a href="#" style="color: 	#FFFFFF">Edit User Information </a></li>
+              <li><a href="#" style="color: 	#FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>
@@ -68,11 +68,9 @@
           <strong>About</strong>
         </a>
         <a action="search.php" class="md-form mt-0" id="searchtime">
-
         <form action="search.php" method="POST">
             <input type="search" id="mysearch" name="mysearch" placeholder="Search" aria-label="Search">
           </form>
-
         </a>
         <a href="#" class="navbar-brand d-flex align-items-center">
         </a>
@@ -126,73 +124,55 @@
   </header>
 <main>
 
-  <section class="py-5 text-center container" id="top">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Welcome to our store! We are the best! We are the cheapest! Enjoy!</h1>
-        <p class="lead text-muted">All sorts of goods...</p>
-
-      </div>
-    </div>
-  </section>
-  <h2 class="fw-light text-center"><strong>BEST SELLERS</strong></h2>
-  <div class="album py-5 bg-light">
-   
-
-    <div class="container">
-        
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">  
-        <?php
+    
+  <div class="album  bg-light text-center">
+  <h3 class="text-cente py-5 bg-light "> Your Order History</h3>
+  <?php
             $db = mysqli_connect('localhost', 'root', '', 'step4');
             if ($db->connect_errno > 0) {
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT P.product_name AS product_name,P.product_description AS product_description,P.product_picture AS product_picture,P.brand AS brand,P.price AS price, SUM(OB.counttt) AS total_count FROM Product P, Place_Order O, OrderedBasketProducts OB WHERE P.product_id = OB.product_id AND OB.order_id = O.order_id GROUP BY P.product_name ORDER BY total_count DESC");
-            $count =0;
-            while ($row = mysqli_fetch_assoc($result) And ($count < 9)) {
-              $product_name = $row['product_name'];
-              $description = $row['product_description'];
-              $price = $row['price'];
-              $brand = $row['brand'];
+            $result = mysqli_query($db, "SELECT * FROM place_order P WHERE P.user_id = 4 ORDER BY P.order_date DESC");
 
-              echo "<div class='col'> <div class='card shadow-sm'>
-              <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
-              <div class='card-body'>
-              <h3 class='text-center strong'> $product_name</h3>
-              <p class='lead text-muted text-center'>$brand</p>
-                <p class='card-text'>$description</p>
-                <div class='d-flex justify-content-between align-items-center'>
-                  <div class='form-group'>
-                          <select class='form-control' id='exampleSelect1' style='max-width:40%;'>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                          </select>
-  
-                    <button type='button' class='btn btn-sm btn-outline-secondary'>Add to Cart</button>      
-                             
-                  </div>
-                  <h4> $price $</h4>  
-                </div>
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+              $order_id = $row['order_id'];
+              $order_date = $row['order_date'];
+              $order_status = $row['order_status'];
+
+              echo "<li class='list-group-item text-center'>";
+              echo "<div' class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+              echo      "<p class='font-italic text-muted mb-0 small'>Order ID: $order_id</p>";
+              echo       "<p class='font-italic text-muted mb-0 small'>Order Date: $order_date</p>";
+              echo       "<p class='font-italic text-muted mb-0 small'>Order Status: $order_status</p>";
+             echo "<form action='invoice.php' method='POST'>
+             <input type='hidden' name='orderid' value='$order_id'>
+               <button class='w-10 btn btn-sm btn-primary' type='submit sign up'>View Invoice</button>
+         </form> ";
+
+              $statement ="SELECT P.product_name AS product_name, OBP.total_price AS total_price, OBP.counttt AS counttt FROM orderedbasketproducts OBP, product P 
+              WHERE  OBP.order_id  = '$order_id' AND OBP.product_id = P.product_id";
+
+              $newresult = mysqli_query($db,$statement);
+
+              while ($myrow = mysqli_fetch_assoc($newresult)) {
+                  $product_name = $myrow['product_name'];
+                  $total_price = $myrow['total_price'];
+                  $count = $myrow['counttt'];
+
+                echo   "<div class='media-body order-2 order-sm-1'>";
+                echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
+                echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
+                echo       "<p class='font-italic text-muted mb-0 small'>$total_price$</p>";
+                echo       "<p class='font-italic text-muted mb-0 small'>Amount: $count</p>";
                 
-              </div>
-            </div>
-            </div>";
-            $count = $count + 1;
-            }
-            ?>  
-      </div>
-    </div>
-  </div>
 
+              }  
+               echo   "</div>";
+            }
+            ?>
+  </div>
 </main>
 
 <footer class="text-muted py-5">

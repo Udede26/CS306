@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>BuyZone</title>
+    <title>Album example · Bootstrap v5.0</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
@@ -49,8 +49,8 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-              <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
+              <li><a href="#" style="color: 	#FFFFFF">Edit User Information </a></li>
+              <li><a href="#" style="color: 	#FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>
@@ -68,11 +68,9 @@
           <strong>About</strong>
         </a>
         <a action="search.php" class="md-form mt-0" id="searchtime">
-
         <form action="search.php" method="POST">
             <input type="search" id="mysearch" name="mysearch" placeholder="Search" aria-label="Search">
           </form>
-
         </a>
         <a href="#" class="navbar-brand d-flex align-items-center">
         </a>
@@ -125,74 +123,26 @@
     </div>
   </header>
 <main>
+  <h2 class="fw-light text-center"><strong>Your Information</strong></h2>
 
-  <section class="py-5 text-center container" id="top">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Welcome to our store! We are the best! We are the cheapest! Enjoy!</h1>
-        <p class="lead text-muted">All sorts of goods...</p>
-
-      </div>
-    </div>
-  </section>
-  <h2 class="fw-light text-center"><strong>BEST SELLERS</strong></h2>
-  <div class="album py-5 bg-light">
-   
-
-    <div class="container">
-        
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">  
-        <?php
-            $db = mysqli_connect('localhost', 'root', '', 'step4');
-            if ($db->connect_errno > 0) {
-              die('Baglanamadim [' . $db->connect_error . ']');
-            }
-
-            $result = mysqli_query($db, "SELECT P.product_name AS product_name,P.product_description AS product_description,P.product_picture AS product_picture,P.brand AS brand,P.price AS price, SUM(OB.counttt) AS total_count FROM Product P, Place_Order O, OrderedBasketProducts OB WHERE P.product_id = OB.product_id AND OB.order_id = O.order_id GROUP BY P.product_name ORDER BY total_count DESC");
-            $count =0;
-            while ($row = mysqli_fetch_assoc($result) And ($count < 9)) {
-              $product_name = $row['product_name'];
-              $description = $row['product_description'];
-              $price = $row['price'];
-              $brand = $row['brand'];
-
-              echo "<div class='col'> <div class='card shadow-sm'>
-              <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
-              <div class='card-body'>
-              <h3 class='text-center strong'> $product_name</h3>
-              <p class='lead text-muted text-center'>$brand</p>
-                <p class='card-text'>$description</p>
-                <div class='d-flex justify-content-between align-items-center'>
-                  <div class='form-group'>
-                          <select class='form-control' id='exampleSelect1' style='max-width:40%;'>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                          </select>
-  
-                    <button type='button' class='btn btn-sm btn-outline-secondary'>Add to Cart</button>      
-                             
-                  </div>
-                  <h4> $price $</h4>  
-                </div>
-                
-              </div>
-            </div>
-            </div>";
-            $count = $count + 1;
-            }
-            ?>  
-      </div>
-    </div>
+  <div class="album py-5 bg-light text-center">
+        <p class="text-center"> First Name: Ufuk<form action="search.php" method="POST">
+            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
+          </form> </p>
+        <p class="text-center"> Last Name: Dede<form action="search.php" method="POST">
+            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
+          </form></p>
+        <p class="text-center"> Address: Basiskele mah. no 39<form action="search.php" method="POST">
+            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
+          </form> </p>
+          <p class="text-center"> New Password: <form action="search.php" method="POST">
+            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
+          </form> </p>
+          <p class="text-center"> New Password Again: <form action="search.php" method="POST">
+            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
+          </form> </p>
+        <button> Apply Changes</button>
   </div>
-
 </main>
 
 <footer class="text-muted py-5">
