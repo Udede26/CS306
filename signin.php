@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include "config.php";
 
 if(!empty($_POST['sign_in_email']) && !empty($_POST['sign_in_password']))
@@ -18,10 +18,11 @@ if(!empty($_POST['sign_in_email']) && !empty($_POST['sign_in_password']))
       if($user_signin_email==$row['email'] && $user_signin_password==$row['password'])
       {
          //storing the name and surname for further use
-         $user_signin_name = $row['first_name'];
-         $user_signin_surname = $row['last_name'];
+         $_SESSION['user_signin_name']  = $row['first_name'];
+         $_SESSION['user_signin_surname']  = $row['last_name'];
+         $_SESSION['users_id']  = $row['user_id'];
 
-         header('Location: home.html');
+         header('Location: home.php');
          exit;
         
 
@@ -39,3 +40,4 @@ else
    //echo("<script>window.location = 'index.php';</script>");
    echo "'Please fill in all the areas!"."<br>"."Redirecting to login page...";
 }
+?>
