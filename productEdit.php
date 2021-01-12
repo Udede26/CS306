@@ -1,16 +1,9 @@
 <?php 
-include "config.php";
 
 session_start();
 $managerName = $_SESSION['managername'];
 $managerSurname = $_SESSION['managersurname'];
-$managerID = $_SESSION['managerid'];
-
-// SQL query to select data from database 
-$sql = "SELECT * 
-        FROM place_order P
-        WHERE P.manager_id = $managerID"; 
-$result = mysqli_query($db, $sql); 
+$_SESSION['productid'] = $_REQUEST['product_id'];
 ?>
 
 
@@ -46,8 +39,41 @@ $result = mysqli_query($db, $sql);
           font-size: 3.5rem;
         }
       }
+
+      #myInput {
+        background-image: url('..assets/dist/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+
+      #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+      }
+
+      #myTable th, #myTable td {
+        text-align: left;
+        padding: 12px;
+      }
+
+      #myTable tr {
+        border-bottom: 1px solid #ddd;
+      }
+
+      #myTable tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+      }
+
     </style>
      <!-- Custom styles for this template -->
+     <link href="home.css" rel="stylesheet">
   </head>
   <body>
     
@@ -73,15 +99,16 @@ $result = mysqli_query($db, $sql);
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
-        <a href="salesManager.php" class="navbar-brand d-flex align-items-center">
-          <strong>Orders</strong>
+        <a href="productManager.php" class="navbar-brand d-flex align-items-center">
+          <strong>Products</strong>
         </a>
-        <a>
+        <a href="category.php" class="navbar-brand d-flex align-items-center">
+          <strong>Product Categories</strong>
         </a>
-        <a href="invoices.php" class="navbar-brand d-flex align-items-center">
-          <strong>Invoices</strong>
+        <a href="newProduct.php" class="navbar-brand d-flex align-items-center">
+          <strong>Add New Product</strong>
         </a>
-      </div>
+        </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -90,57 +117,19 @@ $result = mysqli_query($db, $sql);
 </header>
 <main>
   <div class = "container">
-      <div class = "row">
-        <div class = "col">&nbsp;</div>
-      </div>
-
-      <div class = "col-lg-12">
-        <p class = "lead">Product Table</p>
-
-        <table class = "table table-striped table-hover">
-          <thead class = "thead-dark">
-            <tr>
-              <th scope = "col">Row</th>
-              <th scope = "col">Order ID</th>
-              <th scope = "col">User ID</th>
-              <th scope = "col">Basket ID</th>
-              <th scope = "col">Order Date</th>
-              <th scope = "col">Order Status</th>
-              <th scope = "col">Details</th>
-            </tr>           
-          </thead>
-          <tbody>
-            <?php   // LOOP TILL END OF DATA  
-                $nr = 0;
-                while($rows=$result->fetch_assoc()) 
-                {
-                	$nr++;
- 
-             ?> 
-            <tr> 
-                <!--FETCHING DATA FROM EACH  
-                    ROW OF EVERY COLUMN-->
-                <td><?php echo $nr;?></td>     
-                <td><?php echo $rows['order_id'];?></td> 
-                <td><?php echo $rows['user_id'];?></td> 
-                <td><?php echo $rows['basket_id'];?></td> 
-                <td><?php echo $rows['order_date'];?></td>
-                <td><?php echo $rows['order_status'];?></td>
-                <td>
-                  <a class = "btn btn-primary" href = "managerInvoice.php?orderid=<?php echo $rows["order_id"]; ?>" role = "button">Invoice</a>
-                  <a class = "btn btn-success" href = "changeStatusOrder.php?orderid=<?php echo $rows["order_id"]; ?>" role = "button">Change Status</a>
-                  <a class = "btn btn-danger <?php if($rows['order_status'] == 'Delivered' || $rows['order_status'] == 'Cancelled' ||$rows['order_status'] == 'delivered') {?>disabled <?php }?>" href = "cancelOrder.php?orderid=<?php echo $rows["order_id"]; ?>" role = "button">Cancel</a>
-
-                </td> 
-            </tr> 
-            <?php 
-                } 
-             ?>       
-          </tbody>
-        </table>
-
-      </div>
-    </div>
+    <br>
+    <h1>Edit Product</h1>
+    <h2>Product ID: <?php echo $_SESSION['productid']?></h2>
+    <br>
+    <form method="POST" action="changeProduct.php"> 
+      <input type="hidden" name="new" value="1" />
+      <p><input type="text" name="name" placeholder="Edit Product Name" required /></p>
+      <p><input type="text" name="price" placeholder="Edit Product Price" required /></p>
+      <p><input type="text" name="description" placeholder="Edit Product Description" required /></p>
+      <p><input type="text" name="category" placeholder="Edit Product Category" required /></p>
+      <p><input name="submit" type="submit" value="Submit" /></p>
+    </form>
+  </div>
 </main>
 
 <footer class="text-muted py-5">

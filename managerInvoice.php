@@ -4,13 +4,11 @@ include "config.php";
 session_start();
 $managerName = $_SESSION['managername'];
 $managerSurname = $_SESSION['managersurname'];
-$managerID = $_SESSION['managerid'];
+$orderid = $_REQUEST['orderid'];
 
-// SQL query to select data from database 
-$sql = "SELECT * 
-        FROM place_order P
-        WHERE P.manager_id = $managerID"; 
-$result = mysqli_query($db, $sql); 
+$sql = "SELECT * FROM invoice I WHERE I.order_id = $orderid";
+$result = mysqli_query($db,$sql);
+
 ?>
 
 
@@ -95,50 +93,46 @@ $result = mysqli_query($db, $sql);
       </div>
 
       <div class = "col-lg-12">
-        <p class = "lead">Product Table</p>
+        <h2>Invoice of Order: <?php echo $orderid ?></h2>
+        <h3 class="fw-light text-center">
+          <?php
+            while ($row = mysqli_fetch_assoc($result)) 
+            {
+              $invoice_id = $row['invoice_id'];
+              $invoice_date = $row['invoice_date'];
+              $invoice_address = $row['invoice_address'];
+              $invoice_sum = $row['invoice_sum'];
 
-        <table class = "table table-striped table-hover">
-          <thead class = "thead-dark">
-            <tr>
-              <th scope = "col">Row</th>
-              <th scope = "col">Order ID</th>
-              <th scope = "col">User ID</th>
-              <th scope = "col">Basket ID</th>
-              <th scope = "col">Order Date</th>
-              <th scope = "col">Order Status</th>
-              <th scope = "col">Details</th>
-            </tr>           
-          </thead>
-          <tbody>
-            <?php   // LOOP TILL END OF DATA  
-                $nr = 0;
-                while($rows=$result->fetch_assoc()) 
-                {
-                	$nr++;
- 
-             ?> 
-            <tr> 
-                <!--FETCHING DATA FROM EACH  
-                    ROW OF EVERY COLUMN-->
-                <td><?php echo $nr;?></td>     
-                <td><?php echo $rows['order_id'];?></td> 
-                <td><?php echo $rows['user_id'];?></td> 
-                <td><?php echo $rows['basket_id'];?></td> 
-                <td><?php echo $rows['order_date'];?></td>
-                <td><?php echo $rows['order_status'];?></td>
-                <td>
-                  <a class = "btn btn-primary" href = "managerInvoice.php?orderid=<?php echo $rows["order_id"]; ?>" role = "button">Invoice</a>
-                  <a class = "btn btn-success" href = "changeStatusOrder.php?orderid=<?php echo $rows["order_id"]; ?>" role = "button">Change Status</a>
-                  <a class = "btn btn-danger <?php if($rows['order_status'] == 'Delivered' || $rows['order_status'] == 'Cancelled' ||$rows['order_status'] == 'delivered') {?>disabled <?php }?>" href = "cancelOrder.php?orderid=<?php echo $rows["order_id"]; ?>" role = "button">Cancel</a>
-
-                </td> 
-            </tr> 
-            <?php 
-                } 
-             ?>       
-          </tbody>
-        </table>
-
+              echo "   <p class='text-center'> Invoice ID: $invoice_id</p>
+                <p class='text-center'> Order ID: $orderid</p>
+                <p class='text-center'> Invoice Date: $invoice_date </p>
+                <p class='text-center'> Invoice Address: $invoice_address </p>
+                <p class='text-center'> Invoice Sum: $invoice_sum$ </p>";
+          }
+          ?>
+        </h3>
+        <h2>Products Inside Order:  <?php echo $orderid ?></h2>
+        <h3 class="fw-light text-center">
+          <?php 
+            
+            $sql2 = "SELECT P.product_name, P.price, B.countt
+                    FROM basketproducts B, product P
+                    WHERE P.product_id = B.product_id AND B.basket_id IN(SELECT B.basket_id
+                                                                        FROM basketproducts B, place_order PO
+                                                                        WHERE B.basket_id = PO.basket_id AND PO.order_id = $orderid)";
+            $result = mysqli_query($db,$sql2);
+            
+            while ($row = mysqli_fetch_assoc($result)) 
+            {
+              $products = $row['product_name'];
+              $productsPrice = $row['price'];
+              $productsCount = $row['countt'];
+              echo "<p class='text-center'> Product Name: $products</p>
+              <p class='text-center'> Product Price: $productsPrice </p>
+              <p class='text-center'> Product Count: $productsCount </p>";
+            }
+          ?>
+        </h3>
       </div>
     </div>
 </main>
