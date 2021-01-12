@@ -222,7 +222,7 @@
         echo  "</div>";
         echo "</li>";
       }
-      echo "</table>";
+      
 
 
       ?>
