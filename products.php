@@ -50,8 +50,8 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-              <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
+              <li><a href="edit_user_info.php" style="color:  #FFFFFF">Edit User Information </a></li>
+              <li><a href="history.php" style="color:   #FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>
@@ -123,7 +123,7 @@
           }
           else
           {
-             
+             echo "There is no product in the cart";
              echo"<div id='cartheader'>";
               echo"<a id='total'> Total: $0 </a>";
               echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
@@ -133,7 +133,7 @@
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-              echo "There is no product in the cart";
+              
           }
             ?>
           </div>
