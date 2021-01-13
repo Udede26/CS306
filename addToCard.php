@@ -24,7 +24,7 @@ $sql2="SELECT *
 $result = mysqli_query($db, $sql2);
 while($row = mysqli_fetch_assoc($result))
 {
-  $basketid = $row['basketid'];
+  $basketid = $row['basket_id'];
   $totalCost = $row['total_cost'];
   $numOfProducts = $row['num_of_products'];
 }
