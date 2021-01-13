@@ -1,3 +1,7 @@
+ <?php 
+ session_start();
+ $user_id = $_SESSION['users_id'];
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -42,8 +46,8 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-              <li><a style="color: 	#FFFFFF">name </a></li>
-              <li><a style="color: 	#FFFFFF">surname</a></li>
+                <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
+
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
@@ -133,7 +137,7 @@
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT * FROM place_order P WHERE P.user_id = 4 ORDER BY P.order_date DESC");
+            $result = mysqli_query($db, "SELECT * FROM place_order P WHERE P.user_id = '$user_id' ORDER BY P.order_date DESC");
 
             
             while ($row = mysqli_fetch_assoc($result)) {
