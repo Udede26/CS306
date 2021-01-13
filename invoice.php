@@ -1,3 +1,7 @@
+ <?php 
+ session_start();
+ $user_id = $_SESSION['users_id'];
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -42,8 +46,7 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-              <li><a style="color: 	#FFFFFF">name </a></li>
-              <li><a style="color: 	#FFFFFF">surname</a></li>
+              <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
