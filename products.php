@@ -118,7 +118,7 @@
                 <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>
                 
                 
-                  </div>";
+                  </div></li>";
             }
           }
           else
@@ -133,7 +133,7 @@
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-              echo "There is no product in the cart";
+              echo "There is no product in the cart</li>";
           }
             ?>
           </div>
@@ -225,6 +225,7 @@
         $description = $row['product_description'];
         $price = $row['price'];
         $brand = $row['brand'];
+        $id = $row['product_id'];
        
 
         echo "<li class='list-group-item'>";
@@ -239,23 +240,17 @@
                       <h6 class='font-weight-bold my-2'>$price $</h6>
                       
                         </div>" . "<div class='form-group' align='center'>
-                        <select class='form-control align-items-lg-center' id='exampleSelect1' style='max-width:20%;'>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
-                        </select>
+                        <form  action='test.php' method='POST'>
+                        
+                        <input style='width: 50px' value = 1 class='form-control my-2' name='Amount' type='text' placeholder='Amount' aria-label='Amount'>
+                      
+                        <button type='submit sign in' class='w-10 btn btn-lg btn-primary' id ='btn' name='product_ID' value='$id' >Add to Cart </button>
+                        </form>
                       </div>
                       <br>
                       </br>";
-
-      echo "<button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>";
+                      
+                
     echo"<form action='productinfo.php' method='POST'>";
      echo"<button type='submit sign in' class='w-10 btn btn-lg btn-primary' name='go' value='$product_name' >Go to Product </button>";
      echo"</form>";
@@ -270,7 +265,7 @@
 
       ?>
     </div>
-
+ö
 
   </main>
 
