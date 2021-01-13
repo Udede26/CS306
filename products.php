@@ -105,7 +105,7 @@
               $brand = $row['brand'];
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
-              
+              $product_id =$row['product_id'];
              
 
               echo "<li class='list-group-item'>";
@@ -125,8 +125,18 @@
       <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
       </form>
       <form action='deleteFromCard.php' method='POST'>
-      <button type='submit' class='btn btn-sm btn-outline-secondary' value=$product_id>Delete</button>  
-      </form>";
+      <button type='submit' class='btn btn-sm btn-outline-secondary' name='product_id' value=$product_id>Delete</button>  
+      </form><form action='deleteFromCard.php' method='POST'>
+                
+                
+                 
+      <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+      <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+      </form>
+      <form action='deleteFromCard.php' method='POST'>
+      <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
+      </form>
+      ";
                 
                  echo" </div></li>";
             }
@@ -212,7 +222,7 @@
         </fieldset>
       </div>
       <div>
-        <h6 class="p-1 border-bottom">Rating</h6>
+        <h6 class="p-1 border-bottom">Order by</h6>
         <fieldset>
           <p>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='default' checked="checked"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Default</label> </div>
@@ -256,13 +266,13 @@
         $price = $row['price'];
         $brand = $row['brand'];
         $id = $row['product_id'];
-       
+       $product_picture=$id = $row['product_picture'];
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
         echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
         echo   "<div class='media-body order-2 order-lg-1'>";
-        echo      "</div><img src='$product_' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
+        echo      "</div><img src='$product_picture' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
 
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";

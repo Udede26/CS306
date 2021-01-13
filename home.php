@@ -129,7 +129,7 @@
                 <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
                 </form>
                 <form action='deleteFromCard.php' method='POST'>
-                <button type='submit' class='btn btn-sm btn-outline-secondary' value=$product_id>Delete</button>  
+                <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
                 </form>
                 
                   </div></li>";

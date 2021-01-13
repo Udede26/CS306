@@ -104,7 +104,7 @@
               $brand = $row['brand'];
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
-              
+              $product_id =$row['product_id'];
              
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
@@ -118,6 +118,16 @@
                 
                 
                   </div>";
+                  echo"<form action='deleteFromCard.php' method='POST'>
+                
+                
+                 
+                  <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+                  <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+                  </form>
+                  <form action='deleteFromCard.php' method='POST'>
+                  <button type='submit' class='btn btn-sm btn-outline-secondary' name='product_id' value=$product_id>Delete</button>  
+                  </form>";
             }
           }
           else
