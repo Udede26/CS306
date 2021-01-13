@@ -3,10 +3,10 @@ session_start();
 include "config.php";
 
 $product_id = $_SESSION['productid'];
-$product_name = $_POST['name']
+$product_name = $_POST['name'];
 $product_price =$_POST['price'];
 $product_description =$_POST['description'];
-$product_category = $_POST['category']
+$product_category = $_POST['category'];
 
 
 $sql = "UPDATE product SET product_name = '$product_name' WHERE product_id = $product_id";
