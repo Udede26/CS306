@@ -93,6 +93,10 @@
 
           if(mysqli_num_rows($result)>0)
           {
+            echo"<div id='cartheader'>";
+            echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+           echo"</div>";
+
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
@@ -101,11 +105,7 @@
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
               
-              echo"<div id='cartheader'>";
-              echo"<a id='total'> Total: $$total_sag_ust </a>";
-              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
-             echo"</div>";
-
+             
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";

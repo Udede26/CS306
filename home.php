@@ -99,6 +99,9 @@
 
           if(mysqli_num_rows($result)>0)
           {
+            echo"<div id='cartheader'>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
@@ -106,11 +109,8 @@
               $brand = $row['brand'];
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
+              $product_id = $row['product_id'];
               
-              echo"<div id='cartheader'>";
-              echo"<a id='total'> Total: $$total_sag_ust </a>";
-              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
-             echo"</div>";
 
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
@@ -121,9 +121,18 @@
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
                 <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>
+                <form action='deleteFromCard.php' method='POST'>
                 
                 
-                  </div>";
+                 
+                <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+                <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+                </form>
+                <form action='deleteFromCard.php' method='POST'>
+                <button type='submit' class='btn btn-sm btn-outline-secondary' value=$product_id>Delete</button>  
+                </form>
+                
+                  </div></li>";
             }
           }
           else
