@@ -1,3 +1,6 @@
+<?php 
+ session_start();
+ ?> 
 <!doctype html>
 <html lang="en">
   <head>
@@ -42,8 +45,7 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-              <li><a style="color: 	#FFFFFF">name </a></li>
-              <li><a style="color: 	#FFFFFF">surname</a></li>
+             <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
@@ -79,25 +81,31 @@
           <img class="mb-4" src="https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V" id="cart" lt="" width="72" height="57">
 
           <div class="dropdown-content" id="mydropdown">
+    <?php
 
-            <div id="cartheader">
-              <a id="total"> Total:</a>
-              <button id="proceed" float:right> Proceed to Checkout</button>
-            </div>
+            $user_id = $_SESSION['users_id'];
 
-            <?php
             $db = mysqli_connect('localhost', 'root', '', 'step4');
             if ($db->connect_errno > 0) {
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT * FROM product");
+            $result = mysqli_query($db, "SELECT* FROM BasketProducts BP, Product P, Basket B WHERE BP.user_id=$user_id AND P.product_id=BP.product_id AND B.user_id=BP.user_id");
 
+          if(mysqli_num_rows($result)>0)
+          {
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
               $price = $row['price'];
               $brand = $row['brand'];
+              $count_sag_ust = $row['countt'];
+              $total_sag_ust =$row['total_cost'];
+              
+              echo"<div id='cartheader'>";
+              echo"<a id='total'> Total: $$total_sag_ust </a>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
 
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
@@ -107,11 +115,26 @@
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
-                <h6 class='font-weight-bold my-2'>$price $</h6>
+                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>
                 
                 
                   </div>";
             }
+          }
+          else
+          {
+             echo "There is no product in the cart";
+             echo"<div id='cartheader'>";
+              echo"<a id='total'> Total: $0 </a>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
+
+              echo "<li class='list-group-item'>";
+              echo "<!-- Custom content-->";
+              echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+              echo   "<div class='media-body order-2 order-sm-1'>";
+              
+          }
             ?>
           </div>
         </div>
@@ -124,27 +147,78 @@
   </header>
 <main>
   <h2 class="fw-light text-center"><strong>Your Information</strong></h2>
+  <?php 
+ $if_registered = true;
+ $result_if_registered = mysqli_query($db, "SELECT U.user_id
+                                            FROM Users U
+                                            WHERE U.user_id NOT IN (SELECT R2.user_id
+                                                                     FROM Users U2, RegisteredUserInfo R2
+                                                                     WHERE U2.user_id= R2.user_id)");
+if(mysqli_num_rows($result_if_registered)>0)
+ {
+            while ($row_reg = mysqli_fetch_assoc($result_if_registered)) 
+            {                
+                if($user_id==$row_reg['user_id'])
+                  $if_registered = false;
+                   }
+  }
 
-  <div class="album py-5 bg-light text-center">
-          <form action="change_user_info.php" mehotd="POST">
-        <p class="text-center"> First Name: Ufuk
-            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </p>
-        <p class="text-center"> Last Name: Dede
-            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </p>
-        <p class="text-center"> Address: Basiskele mah. no 39
-            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </p>
-          <p class="text-center"> New Password: 
-            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-           </p>
-          <p class="text-center"> New Password Again: 
-            <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-           </p>
-        <button> Apply Changes</button>
-        </form>
-  </div>
+  if ($if_registered ==true)
+  {
+         
+     $result_registered = mysqli_query($db, "SELECT U.address, U.first_name, U.last_name, R.email, R.password, R.phone_number
+FROM RegisteredUserInfo R, Users U
+WHERE R.user_id = $user_id AND U.user_id=R.user_id");
+
+
+  while ($row_2 = mysqli_fetch_assoc($result_registered))
+  {
+    $first_name = $row_2['first_name'];
+              $last_name = $row_2['last_name'];
+              $address = $row_2['address'];
+              $email = $row_2['email'];
+              $pass = $row_2['password'];
+              $phone =$row_2['phone_number'];
+
+
+     echo"<div class='album py-5 bg-light text-center'>";
+          echo"<form action='change_user_info.php' method='POST'>";
+        echo"<p class='text-center'> First Name: $first_name";
+            echo"<input type='input' id='changename' name='changename' placeholder='Change' aria-label='Change'>";
+          echo"</p>";
+        echo"<p class='text-center'> Last Name: $last_name";
+            echo"<input type='input' id='changesurname' name='changesurname' placeholder='Change' aria-label='Change'>";
+          echo"</p>";
+        echo"<p class='text-center'> Address: $address";
+            echo"<input type='input' id='changeaddress' name='changeaddress' placeholder='Change' aria-label='Change'>";
+          echo"</p>";
+          echo"<p class='text-center'> Email: $email";
+            echo"<input type='input' id='changeemail' name='changeemail' placeholder='Change' aria-label='Change'>";
+          echo"</p>";
+          echo"<p class='text-center'> Phone Number: $phone";
+            echo"<input type='input' id='changephone' name='changephone' placeholder='Change' aria-label='Change'>";
+          echo"</p>";
+          echo"<p class='text-center'> New Password: ";
+            echo"<input type='input' id='changepass' name='changepass' placeholder='Change' aria-label='Change'>";
+           echo"</p>";
+          echo"<p class='text-center'> New Password Again:";
+            echo"<input type='input' id='changepassagain' name='changepassagain' placeholder='Change' aria-label='Change'>";
+           echo"</p>";
+        echo"<button> Apply Changes</button>";
+        echo"</form>";
+  echo"</div>";
+
+  }
+
+  
+}
+  else 
+  {
+   echo"<div class='album py-5 bg-light text-center'>";
+   echo "Only registered users can change their information";
+   echo"</div>";
+  }
+  ?>
 </main>
 
 <footer class="text-muted py-5">
@@ -163,3 +237,15 @@
       
   </body>
 </html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
