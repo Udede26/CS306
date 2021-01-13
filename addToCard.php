@@ -41,7 +41,7 @@ mysqli_query($db, $sql_update);
 
 
 $sql_statement= "INSERT INTO basketproducts(basket_id, user_id, product_id, countt)
-                  VALUES ($basketid, $user_id, pID, $pCount)";
+                  VALUES ($basketid, $user_id, $pID, $pCount)";
 mysqli_query($db, $sql_statement);
 
 
