@@ -55,8 +55,7 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-              <li><a style="color: 	#FFFFFF">name </a></li>
-              <li><a style="color: 	#FFFFFF">surname</a></li>
+              <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
@@ -155,14 +154,67 @@
 				  
 				</div>
  
-
-         	</div>
+         </div>
          	<div class = "col-md-7">
          		<p class= "newarrival text-center">NEW</p>
-         		<h2> Spicy Ketchup </h2>
-                <p> Product Code: ISRC2020  </p>
+         		<h2> <?php if(isset($_POST['go'])) echo $_POST['go']; else echo $_SESSION["gobutonu"]; ?> </h2>
+               
 
-                <?php
+              <?php
+              if (isset($_POST['go']))
+                $_SESSION["gobutonu"]=$_POST['go'];
+                $product_name = $_SESSION["gobutonu"];
+              $db = mysqli_connect('localhost', 'root', '', 'step4');
+              if ($db->connect_errno > 0) {
+                die('Baglanamadim [' . $db->connect_error . ']');
+              }
+
+              $result = mysqli_query($db, "SELECT P.product_id, P.product_description, P.price, P.brand, P.rating  FROM product P WHERE P.product_name='$product_name'");
+              while ($row = mysqli_fetch_assoc($result)) {
+                $productid = $row['product_id'];
+                $description = $row['product_description'];
+                $price = $row['price'];
+                $brand = $row['brand'];
+                $rating = $row['rating'];
+              }
+                echo"<p> Product Code: $productid </p>";
+                echo"<p> $description </p>";
+
+                  for($x=1;$x<=$rating;$x++) {
+                echo "<span class='fa fa-star checked' aria-hidden='true'></span>";
+            }
+            if (strpos($rating,'.')) {
+                echo "<span class= 'fa fa-star-half-o fa-sm checked' aria-hidden='true'></span>";
+                $x++;
+            }
+            while ($x<=5) {
+                echo "<span class= 'fa fa-star-o checked' aria-hidden='true'></span>";
+                $x++;
+            } 
+             echo " ".$rating;
+                echo"<p class= 'price'> $price $ </p>";
+                echo "<p><b>Brand: </b> $brand </p>";
+                echo"<label>Count  </label>";
+                echo"<input id = 'amount' type='text' value='1'>";
+                
+               
+        echo"<button type='button' class='btn btn-default cart btn-primary'>Add to cart</button>";
+        
+         echo"</div>";
+         echo"</div>";
+
+
+
+
+
+
+
+
+             
+
+
+
+
                    //$starNumber = $_SESSION["product_rating"]
                 /*
                    $starNumber = 3.5;
@@ -178,98 +230,165 @@
 				        $x++;
 				    } 
 				     */
-				?>
-              
-			
-				<div id="myHTMLWrapper">
+        $if_purchased=false;
+        $if_commented=false;
+        $result4 = mysqli_query($db, "SELECT U.user_id
+                                      FROM Users U, OrderedBasketProducts OB
+                                       WHERE U.user_id = OB.user_id AND OB.product_id='$productid'");
 
-				</div>
+        while ($row4 = mysqli_fetch_assoc($result4)) {
+         if(isset($_SESSION['users_id']) && $_SESSION['users_id']==$row4['user_id'])
+                    $if_purchased=true;
+              }  
+ 
+        $result5 = mysqli_query($db, "SELECT U.user_id
+                                      FROM Users U, Comments C
+                                       WHERE U.user_id = C.user_id AND C.product_id='$productid'");
 
-				<script>
-				   var wrapper = document.getElementById("myHTMLWrapper");
-
-				  var myHTML = '';
-				  //var num = <?php //echo json_encode($_SESSION["product_rating"]); ?>;
-
-
-				  for (var i = 0; i < 5; i++) {
-				    myHTML += '<span class="fa fa-star checked"></span>';
-				  }
-
-
-
-				  wrapper.innerHTML = myHTML;
-				</script>
-				
-				
-                <p class= "price"> 8.5 TL </p>
-                <p><b>Brand: </b> Heinz</p>
-                <label>Count  </label>
-                <input id = "amount" type="text" value="1">
-				
-				<button type="button" class='btn btn-default cart btn-primary'>Add to cart</button>
-				
-         	</div>
-         	
+        while ($row5 = mysqli_fetch_assoc($result5)) {
+         if(isset($_SESSION['users_id']) && $_SESSION['users_id']==$row5['user_id'])
+                    $if_commented=true;
+              } 
 
 
-         </div>
+               $_SESSION['productt_id'] =$productid;
+
+ //echo"<p style='Color:blue'>$_SESSION['users_id']</p>";
+
+       
+	echo"</div>"; 
+  echo"</div>";
 
 
-	 </div>
-  </div>
-  <div class="album py-5 bg-light">
-  <li class='list-group-item'>
-  <p style="Color:blue">You:</p>		
-  <form action="/html/tags/html_form_tag_action.cfm" method="post">
-<div>
-<textarea name="comments" id="comments" style="width:40%">
-</textarea>
-</div>
-<div>
-<select class='form-control align-items-lg-center' id='exampleSelect1' style='max-width:2%;float:left;'>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-<span class="fa fa-star checked"></span>
-				</div>
-				<br></br>
-<div><button class='w-10 btn btn-sm btn-primary' type='submit sign in'>Submit Comment</button></div>
+  echo"<div class='album py-5 bg-light'>";
+  echo"<li class='list-group-item'>";
 
-</form>
-				</li>
-  <li class='list-group-item'>
-        <!-- Custom content-->
-    		<div class='media align-items-lg-center flex-column flex-lg-row p-3'>
-		 <p style="Color:blue">Ihsan Ufuk Dede:</p>		
-		 Çok güzel bir ürün gerçekten çok beğendim
-         </div>
-		</li>
-		<li class='list-group-item'>
-        <!-- Custom content-->
-    		<div class='media align-items-lg-center flex-column flex-lg-row p-3'>
-        <div class='media-body order-2 order-lg-1'>
-		<p style="Color:blue">Ihsan Ufuk Dede:</p>		
-		 Çok güzel bir ürün gerçekten çok beğendim
-         </div>
-		</li>
-		<li class='list-group-item'>
-        <!-- Custom content-->
-    		<div class='media align-items-lg-center flex-column flex-lg-row p-3'>
-        <div class='media-body order-2 order-lg-1'>
-		<p style="Color:blue">Ihsan Ufuk Dede:</p>		
-		 Çok güzel bir ürün gerçekten çok beğendim
-         </div>
-		</li>
-		<li class='list-group-item'>
-        <!-- Custom content-->
-    		<div class='media align-items-lg-center flex-column flex-lg-row p-3'>
-        <div class='media-body order-2 order-lg-1'>
-		<p style="Color:blue">Ihsan Ufuk Dede:</p>		
-		 Çok güzel bir ürün gerçekten çok beğendim
+
+  echo"<form action='insertCommentRating.php' method='post'>";
+//echo"<div>";
+if ($if_commented==true) {
+    echo "<p style='Color:blue'>You have already commented on this product. You can edit your comment: <i class='fa fa-pencil' aria-hidden='true'></i></p>";
+    echo"<div>";
+    echo"<textarea name='editcomments' id='editcomments' style='width:40%'>";
+    echo"</textarea>";
+    echo"</div>";
+  }
+  else
+  {
+    echo"<p style='Color:blue'>Your Comment:</p>";
+    echo"<div>";
+    echo"<textarea name='comments' id='comments' style='width:40%'>";
+   echo"</textarea>";
+    echo"</div>";
+
+  }
+
+echo"<p style='Color:blue'>Rate this product:</p>";
+if ($if_purchased==true) {  
+echo"<div>";
+echo"<select class='form-control align-items-lg-center' name='selectRating' id='exampleSelect1' style='max-width:2%;float:left;'>";
+                          echo"<option>1</option>";
+                          echo"<option>2</option>";
+                          echo"<option>3</option>";
+                          echo"<option>4</option>";
+                          echo"<option>5</option>";
+                        echo"</select>";
+echo"<span class='fa fa-star checked'></span>";
+        echo"</div>";
+        echo"<br></br>";
+}
+
+else
+  echo "<p style='Color:black'>You have not purchased this product yet! </p>";
+
+echo"<div><button class='w-10 btn btn-sm btn-primary' type='submit sign in'>Submit</button></div>";
+echo"</form>";
+
+
+            $result2 = mysqli_query($db, "SELECT U.first_name, U.last_name, C.user_comment
+FROM Users U, Comments C
+WHERE U.user_id = C.user_id AND C.product_id='$productid'AND C.user_id NOT IN (SELECT U2.user_id
+FROM Users U2, Comments C2, OrderedBasketProducts OB2
+WHERE U2.user_id = OB2.user_id AND OB2.user_id=C2.user_id  AND C2.product_id='$productid' AND C2.product_id IN (SELECT OB3.product_id
+                    FROM OrderedBasketProducts OB3
+                     WHERE OB3.basket_id= OB2.basket_id))");
+
+    $if_no_comment=true;     
+    $result3= mysqli_query($db,"SELECT U.first_name, U.last_name, C.user_comment, R.user_rating
+FROM Users U, Comments C, OrderedBasketProducts OB , Product P, Ratings R
+WHERE U.user_id = OB.user_id AND OB.user_id=C.user_id AND R.user_id = U.user_id AND R.product_id=P.product_id AND    C.product_id = P.product_id AND P.product_id='$productid' AND C.product_id IN (SELECT OB2.product_id
+                    FROM OrderedBasketProducts OB2
+                     WHERE OB2.basket_id= OB.basket_id)");
+
+  if(mysqli_num_rows($result3)>0){
+    $if_no_comment=false;
+            while ($row = mysqli_fetch_assoc($result3)) {
+              $commented_user_name = $row['first_name'];
+              $commented_user_surname = $row['last_name'];
+              $comment = $row['user_comment'];
+              $user_rating = $row['user_rating'];
+             
+             echo"</li>";
+            echo" <li class='list-group-item'>";
+            echo"<!-- Custom content-->";
+            echo"<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+            echo"<p style='Color:blue'>$commented_user_name $commented_user_surname</p>";    
+            echo"$comment";
+            echo"<p style='Color:green'>Purchased the product<i class='fa fa-check' aria-hidden='true'></i></p>";
+            if(!is_null($user_rating)){
+              if($user_rating==5.0)
+              {
+                for($i=0;$i<5;$i++) {
+                echo "<span class='fa fa-star fa-xs checked' aria-hidden='true'></span>";
+                 }
+               }
+              else
+              {
+                    for($x=0;$x<$user_rating;$x++) {
+                echo "<span class='fa fa-star fa-xs checked' aria-hidden='true'></span>";
+
+
+                }
+                
+              if ($user_rating-$x!=0) {
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' aria-hidden='true'></span>";
+                $x++;
+              }
+
+              while ($x<5) {
+                 echo "<span class= 'fa fa-star-o fa-xs checked' aria-hidden='true'></span>";
+                 $x++;
+               } 
+              }
+             
+            }
+              echo"</div>";
+            }
+            
+          }
+            
+          if(mysqli_num_rows($result2)>0){
+            $if_no_comment=false;
+            while ($row2 = mysqli_fetch_assoc($result2)) {
+              $commented_user_name = $row2['first_name'];
+              $commented_user_surname = $row2['last_name'];
+              $comment = $row2['user_comment'];
+                
+             
+             echo"</li>";
+            echo" <li class='list-group-item'>";
+            echo"<!-- Custom content-->";
+            echo"<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+            echo"<p style='Color:blue'>$commented_user_name $commented_user_surname</p>";    
+            echo"$comment";
+            echo"</div>";
+            }
+           }
+
+           if ($if_no_comment==true)
+            echo"There is no comment here. Be the first to comment!"
+	
+     ?>
          </div>
         </li>
   </div>
