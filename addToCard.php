@@ -4,7 +4,7 @@ session_start();
 include "config.php";
 $user_id = $_SESSION['users_id'];
 $pID =$_POST['product_id'];
-$pCount = $_POST['countt']
+$pCount = $_POST['countt'];
 
 
 $sql1= "SELECT P.price 
