@@ -125,6 +125,7 @@ $managerSurname = $_SESSION['managersurname'];
       <p><input type="text" name="price" placeholder="Enter Product Price" required /></p>
       <p><input type="text" name="brand" placeholder="Enter Product Brand" required /></p>
       <p><input type="text" name="category" placeholder="Enter Product Category" required /></p>
+      <p><input type="text" name="picture" placeholder="Enter Product Picture Link" required /></p>
       <p><input name="submit" type="submit" value="Submit" /></p>
     </form>
   </div>

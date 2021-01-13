@@ -7,6 +7,7 @@ $product_name = $_POST['name'];
 $product_price =$_POST['price'];
 $product_description =$_POST['description'];
 $product_category = $_POST['category'];
+$pictureLink = $_Post['picture']
 
 
 $sql = "UPDATE product SET product_name = '$product_name' WHERE product_id = $product_id";
@@ -16,6 +17,9 @@ $sql = "UPDATE product SET price = '$product_price' WHERE product_id = $product_
 mysqli_query($db, $sql);
 
 $sql = "UPDATE product SET product_description = '$product_description' WHERE product_id = $product_id";
+mysqli_query($db, $sql);
+
+$sql = "UPDATE product SET product_picture = '$pictureLink' WHERE product_id = $product_id";
 mysqli_query($db, $sql);
 
 $sql = "UPDATE productcategory SET category_id = '$product_category' WHERE product_id = $product_id";
