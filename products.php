@@ -247,7 +247,7 @@
         $price = $row['price'];
         $brand = $row['brand'];
         $id = $row['product_id'];
-       $product_picture=$id = $row['product_picture'];
+        $product_picture = $row['product_picture'];
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
