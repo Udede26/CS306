@@ -106,7 +106,7 @@
               $total_sag_ust =$row['total_cost'];
               echo"<div id='cartheader'>";
               echo"<a id='total'> Total: $$total_sag_ust </a>";
-              echo"<button id='proceed' float:right> Proceed to Checkout</button>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
              echo"</div>";
 
               echo "<li class='list-group-item'>";
