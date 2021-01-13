@@ -1,6 +1,6 @@
 <?php
 
-$db= mysqli_connect('localhost', 'root', '', 'step4_1');
+$db= mysqli_connect('localhost', 'root', '', 'step4');
 
 if($db->connect_errno>0)
 {
