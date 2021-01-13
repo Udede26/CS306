@@ -104,6 +104,7 @@
               $brand = $row['brand'];
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
+              
               echo"<div id='cartheader'>";
               echo"<a id='total'> Total: $$total_sag_ust </a>";
               echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
@@ -123,6 +124,22 @@
                   </div>";
             }
           }
+          else
+          {
+             
+             echo"<div id='cartheader'>";
+              echo"<a id='total'> Total: $0 </a>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
+
+              echo "<li class='list-group-item'>";
+              echo "<!-- Custom content-->";
+              echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+              echo   "<div class='media-body order-2 order-sm-1'>";
+              echo "There is no product in the cart";
+          }
+
+
             ?>
           </div>
         </div>
