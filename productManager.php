@@ -133,7 +133,7 @@ $result = mysqli_query($db, $sql);
         <table class = "table table-striped table-hover">
           <thead class = "thead-dark">
             <tr class = "header">
-              <th scope = "col">Row</th>
+              <th scope = "col">Picture</th>
               <th scope = "col">Product ID</th>
               <th scope = "col">Product Name</th>
               <th scope = "col">Price</th>
@@ -147,13 +147,13 @@ $result = mysqli_query($db, $sql);
                 $nr = 0;
                 while($rows=$result->fetch_assoc()) 
                 {
-                	$nr++;
+                	
  
              ?> 
             <tr> 
                 <!--FETCHING DATA FROM EACH  
                     ROW OF EVERY COLUMN-->
-                <td><?php echo $nr;?></td>     
+                <td><?php echo "<img src='"; echo $rows['product_picture']; echo "' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";?></td>     
                 <td><?php echo $rows['product_id'];?></td> 
                 <td><?php echo $rows['product_name'];?></td> 
                 <td><?php echo $rows['price'];?></td> 
