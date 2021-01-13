@@ -4,8 +4,17 @@ session_start();
 include "config.php";
 $user_id = $_SESSION['users_id'];
 $pID =$_POST['product_id'];
-$pCount = $_POST['countt'];
 
+
+$sql1= "SELECT B.countt 
+        FROM basketproducts B
+        WHERE B.product_id = $pID AND B.user_id = $user_id";
+$result = mysqli_query($db, $sql1);
+while($row = mysqli_fetch_assoc($result))
+{
+  $pCount = $row['countt'];
+}
+ 
 
 $sql1= "SELECT P.price 
         FROM product P
@@ -47,6 +56,6 @@ $sql_statement = "DELETE FROM  basketproducts WHERE basket_id = $basketid AND pr
 mysqli_query($db, $sql_statement);
 
 
-header('Location:products.php');
+header('Location:checkout.php');
 exit;
 ?>
