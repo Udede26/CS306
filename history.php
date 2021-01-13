@@ -1,7 +1,7 @@
- <?php 
+<?php 
  session_start();
- $user_id = $_SESSION['users_id'];
  ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -46,8 +46,7 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-                <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
-
+              <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
@@ -83,26 +82,31 @@
           <img class="mb-4" src="https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V" id="cart" lt="" width="72" height="57">
 
           <div class="dropdown-content" id="mydropdown">
+<?php
+       $user_id = $_SESSION['users_id'];
 
-            <div id="cartheader">
-              <a id="total"> Total:</a>
-              <button id="proceed" float:right> Proceed to Checkout</button>
-            </div>
-
-            <?php
             $db = mysqli_connect('localhost', 'root', '', 'step4');
             if ($db->connect_errno > 0) {
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT * FROM product");
+            $result = mysqli_query($db, "SELECT* FROM BasketProducts BP, Product P, Basket B WHERE BP.user_id=$user_id AND P.product_id=BP.product_id AND B.user_id=BP.user_id");
 
+          if(mysqli_num_rows($result)>0)
+          {
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
               $price = $row['price'];
               $brand = $row['brand'];
-              $product_id = $row['product_id'];
+              $count_sag_ust = $row['countt'];
+              $total_sag_ust =$row['total_cost'];
+              
+              echo"<div id='cartheader'>";
+              echo"<a id='total'> Total: $$total_sag_ust </a>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
+
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
@@ -111,20 +115,26 @@
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
-                <h6 class='font-weight-bold my-2'>$price $</h6>
+                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>
                 
                 
-                  </div><form action='deleteFromCard.php' method='POST'>
-                
-                
-                 
-                  <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
-                  <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
-                  </form>
-                  <form action='deleteFromCard.php' method='POST'>
-                  <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
-                  </form>";
+                  </div>";
             }
+          }
+          else
+          {
+             
+             echo"<div id='cartheader'>";
+              echo"<a id='total'> Total: $0 </a>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
+
+              echo "<li class='list-group-item'>";
+              echo "<!-- Custom content-->";
+              echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+              echo   "<div class='media-body order-2 order-sm-1'>";
+              echo "There is no product in the cart";
+          }
             ?>
           </div>
         </div>
@@ -146,7 +156,7 @@
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT * FROM place_order P WHERE P.user_id = '$user_id' ORDER BY P.order_date DESC");
+            $result = mysqli_query($db, "SELECT * FROM place_order P WHERE P.user_id = $user_id ORDER BY P.order_date DESC");
 
             
             while ($row = mysqli_fetch_assoc($result)) {
