@@ -216,7 +216,7 @@
         <fieldset>
           <p>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='default' checked="checked"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Default</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_ascdending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Price Ascending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_ascending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Price Ascending</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Price Descending</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='name_ascending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">A-Z</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='name_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Z-A</label> </div>
