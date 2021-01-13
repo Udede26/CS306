@@ -223,8 +223,42 @@
     $min_price = $_POST['min'];
     $max_price = $_POST['max'];
     $rating = $_POST['rating'];
-    $result = mysqli_query($db, "SELECT product.product_name, product.product_description, product.price, product.brand FROM product, productcategory, category WHERE product.product_id = productcategory.product_id AND productcategory.category_id = category.category_id AND category.category_name = \"$category\" AND product.rating $rating AND product.price BETWEEN $min_price AND $max_price");
+    $order = $_POST['orderby'];
+    $Query_string = "SELECT product.product_name, product.product_description, product.price, product.brand, product.product_picture FROM product, productcategory, category WHERE product.product_id = productcategory.product_id AND productcategory.category_id = category.category_id";
+    if($category != 'default')
+    {
+    	$Query_string = $Query_string ." AND category.category_name = \"$category\"";
+    }  
 
+    $Query_string = $Query_string ." AND product.rating $rating AND product.price BETWEEN $min_price AND $max_price";
+
+    if($order == 'price_ascending')
+    {
+    	$Query_string = $Query_string." ORDER BY product.price ASC";
+    }
+    else if($order == 'price_descending')
+    {
+    	$Query_string = $Query_string." ORDER BY product.price DESC";
+    }
+    else if($order == 'name_ascending')
+    {
+    	$Query_string = $Query_string." ORDER BY product.product_name ASC";
+    }
+    else if($order == 'name_descending')
+    {
+    	$Query_string = $Query_string." ORDER BY product.product_name DESC";
+    }
+    else if($order  == 'rating_ascending')
+    {
+    	$Query_string = $Query_string." ORDER BY product.rating ASC";
+    }
+    else if($order  =='rating_descending')
+    {
+    	$Query_string = $Query_string." ORDER BY product.rating DESC";
+    }
+    echo $Query_string;
+	mysqli_query($db, $Query_string);
+     
       while ($row = mysqli_fetch_assoc($result)) {
         $product_name = $row['product_name'];
         $description = $row['product_description'];
