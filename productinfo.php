@@ -61,8 +61,8 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-              <li><a href="#" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="#" style="color: 	#FFFFFF">Order History</a></li>
+            <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
+              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>

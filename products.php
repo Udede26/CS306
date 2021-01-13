@@ -50,8 +50,8 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-              <li><a href="#" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="#" style="color: 	#FFFFFF">Order History</a></li>
+              <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
+              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>
@@ -130,9 +130,11 @@
 
 
     <div id="sidebar">
+    <form action="test.php" method="POST">
       <div>
         <h6 class="p-1 border-bottom">Category</h6>
-        <form class="ml-md-2">
+        <fieldset>
+          <p>
         <?php
 
             $db = mysqli_connect('localhost', 'root', '', 'step4');
@@ -144,33 +146,46 @@
 
             while ($row = mysqli_fetch_assoc($result)) {
               $category_name = $row['category_name'];
-              echo "<div class='form-inline border rounded p-md-2 my-2'> <input type='radio' name='type' id='notugly'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>$category_name</label> </div>";
+              echo "<div class='form-inline border rounded p-md-2 my-2'> <input value='$category_name'type='radio' name='type' id='notugly' checked='checked'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>$category_name</label> </div>";
             }
             ?>
-        </form>
+            </p>
+        </fieldset>
       </div>
       <div>
         <h6 class="p-1 border-bottom">Filter By</h6>
         <p class="mb-2">Price</p>
-        <form class="ml-md-2">
-          <input class="form-control my-2" type="text" placeholder="Min. Price" aria-label="Min. Price">
-          <input class="form-control my-2" type="text" placeholder="Max. Price" aria-label="Max. Price">
-        </form>
+        <fieldset>
+          <p><small>min price</small></p>
+          <p>
+          <input value = 0 class="form-control my-2" name="min" type="text" placeholder="Min. Price" aria-label="Min. Price">
+          <p><small>max price</small></p>
+          <input value = 9999 class="form-control my-2" name="max" type="text" placeholder="Max. Price" aria-label="Max. Price">
+          </p>
+        </fieldset>
       </div>
       <div>
         <h6 class="p-1 border-bottom">Rating</h6>
-        <form class="ml-md-2">
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="type" id="notugly"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>3</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="type" id="notugly"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
-          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="type" id="ugly"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
-        </form>
+        <fieldset>
+          <p>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>3'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>3</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
+          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' checked="checked"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
+          </p>
+        </fieldset>
       </div>
       <br>
       </br>
-      <button class='w-10 btn btn-lg btn-primary' name='applyfilterbutton' type='submit sign in'>Apply Filter(s)</button>
+      <button class='w-10 btn btn-lg btn-primary' name='applyfilterbutton' type='submit sign in' onclick='submitForms()'>Apply Filter(s)</button>
+
       <br>
       </br>
+      </form>
+      <form action="products.php">
       <button class='w-10 btn btn-lg btn-primary' name='resetfilterbutton' type='submit sign in' id="reset">Reset Filter(s)</button>
+          </form>
+     
+</form>
     </div>
 
 
