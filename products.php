@@ -151,7 +151,7 @@
 
 
     <div id="sidebar">
-    <form action="test.php" method="POST">
+    <form action="filtered.php" method="POST">
       <div>
         <h6 class="p-1 border-bottom">Category</h6>
         <fieldset>
@@ -189,7 +189,7 @@
         <h6 class="p-1 border-bottom">Rating</h6>
         <fieldset>
           <p>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>3'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>3</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>0.5'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>0.5</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
           <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' checked="checked"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
           </p>
