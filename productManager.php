@@ -1,30 +1,14 @@
 <?php 
 session_start();
+include "config.php";
+
 $managerName = $_SESSION['managername'];
 $managerSurname = $_SESSION['managersurname'];
-// Username is root 
-$user = 'root'; 
-$password = ''; 
-// Database name is gfg 
-$database = 'step4';  
-  
-// Server is localhost with 
-// port number  
-$servername='localhost'; 
-$mysqli = new mysqli($servername, $user,  
-                $password, $database); 
-  
-// Checking for connections 
-if ($mysqli->connect_error) { 
-    die('Connect Error (' .  
-    $mysqli->connect_errno . ') '.  
-    $mysqli->connect_error); 
-} 
-  
+
 // SQL query to select data from database 
 $sql = "SELECT * FROM product ORDER BY product_id"; 
-$result = $mysqli->query($sql); 
-$mysqli->close();  
+$result = mysqli_query($db, $sql); 
+
 ?>
 
 
@@ -60,6 +44,38 @@ $mysqli->close();
           font-size: 3.5rem;
         }
       }
+
+      #myInput {
+        background-image: url('..assets/dist/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+
+      #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+      }
+
+      #myTable th, #myTable td {
+        text-align: left;
+        padding: 12px;
+      }
+
+      #myTable tr {
+        border-bottom: 1px solid #ddd;
+      }
+
+      #myTable tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+      }
+
     </style>
      <!-- Custom styles for this template -->
      <link href="home.css" rel="stylesheet">
@@ -87,6 +103,17 @@ $mysqli->close();
       </div>
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a href="productManager.php" class="navbar-brand d-flex align-items-center">
+          <strong>Products</strong>
+        </a>
+        <a href="category.php" class="navbar-brand d-flex align-items-center">
+          <strong>Product Categories</strong>
+        </a>
+        <a href="newProduct.php" class="navbar-brand d-flex align-items-center">
+          <strong>Add New Product</strong>
+        </a>
+      </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -100,13 +127,12 @@ $mysqli->close();
       </div>
 
       <div class = "col-lg-12">
-        <div class = "alert alert-success" role = "alert">Login Successful</div>
+        <h2>Product Table</h2>
 
-        <p class = "lead">Product Table</p>
-
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for products.." title="Type in a product">
         <table class = "table table-striped table-hover">
           <thead class = "thead-dark">
-            <tr>
+            <tr class = "header">
               <th scope = "col">Row</th>
               <th scope = "col">Product ID</th>
               <th scope = "col">Product Name</th>
@@ -116,7 +142,7 @@ $mysqli->close();
               <th scope = "col">Action</th>
             </tr>           
           </thead>
-          <tbody>
+          <tbody id  = "myTable">
             <?php   // LOOP TILL END OF DATA  
                 $nr = 0;
                 while($rows=$result->fetch_assoc()) 
@@ -134,8 +160,8 @@ $mysqli->close();
                 <td><?php echo $rows['brand'];?></td>
                 <td><?php echo $rows['rating'];?></td>
                 <td>
-                	<a class = "btn btn-sm btn-success" href = "#" role = "button">Edit</a>
-                	<a class = "btn btn-sm btn-danger" href = "#" role = "button">Delete</a>              
+                	<a class = "btn btn-success" href = "productEdit.php?product_id=<?php echo $rows["product_id"]; ?>" role = "button">Edit</a>
+                	<a class = "btn btn-danger" href = "productDelete.php?product_id=<?php echo $rows["product_id"]; ?>" role = "button">Delete</a>              
               </td> 
             </tr> 
             <?php 
@@ -143,6 +169,32 @@ $mysqli->close();
              ?>       
           </tbody>
         </table>
+        <script>
+          function myFunction() 
+          {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) 
+            {
+              td = tr[i].getElementsByTagName("td")[2];
+              if (td) 
+              {
+                txtValue = td.textContent || td.innerText;
+              }
+              if (txtValue.toUpperCase().indexOf(filter) > -1) 
+              {
+                tr[i].style.display = "";
+              } 
+              else 
+              {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        </script>
 
       </div>
     </div>
