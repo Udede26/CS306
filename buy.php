@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -49,7 +52,7 @@
   
       <div class=" ">
         <h4 class="mb-3">Billing address</h4>
-        <form action="home_after_payment.php" class="needs-validation" method="POST" onsubmit='return validate ()'>
+        <form action="paymentOps.php" class="needs-validation" method="POST" onsubmit='return validate ()'>
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">First name</label>
@@ -79,7 +82,7 @@
 
             <div class="col-12">
               <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <input type="text" class="form-control" id="address" name="invoiceaddress" placeholder="1234 Main St" required>
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
