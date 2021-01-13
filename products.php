@@ -116,7 +116,17 @@
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
-                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>";
+                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6><form action='deleteFromCard.php' method='POST'>
+                
+                
+                 
+                <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+                <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+                </form>
+                <form action='deleteFromCard.php' method='POST'>
+                <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
+                </form>
+                ";
                 
                 
                  echo" </div></li>";
