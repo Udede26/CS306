@@ -8,6 +8,7 @@ $pdescription =$_POST['description'];
 $pprice =$_POST['price'];
 $pbrand =$_POST['brand'];
 $pcategory =$_POST['category'];
+$pictureLink = $_Post['picture']
 $foo = true;
 
 $sql1= "SELECT P.product_name, P.brand 
@@ -27,7 +28,7 @@ while($row = mysqli_fetch_assoc($result))
 if($foo)
 {
   $sql_statement= "INSERT INTO product(product_name, product_description, price, brand, rating, product_picture)
-                 VALUES ('$pname', '$pdescription', $pprice, '$pbrand', 0, NULL)";
+                 VALUES ('$pname', '$pdescription', $pprice, '$pbrand', 0, '$pictureLink')";
   mysqli_query($db, $sql_statement);
   echo("<script>alert('New product has been successfully added!"."<br>"."Redirecting to home page...')</script>");
 }

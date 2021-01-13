@@ -127,6 +127,7 @@ $_SESSION['productid'] = $_REQUEST['product_id'];
       <p><input type="text" name="price" placeholder="Edit Product Price" required /></p>
       <p><input type="text" name="description" placeholder="Edit Product Description" required /></p>
       <p><input type="text" name="category" placeholder="Edit Product Category" required /></p>
+      <p><input type="text" name="picture" placeholder="Edit Product Picture Link" required /></p>
       <p><input name="submit" type="submit" value="Submit" /></p>
     </form>
   </div>
