@@ -21,7 +21,7 @@ if(!empty($_POST['sign_in_email']) && !empty($_POST['sign_in_password']))
          $user_signin_name = $row['first_name'];
          $user_signin_surname = $row['last_name'];
 
-         header('Location: home.html');
+         header('Location: home.php');
          exit;
         
 
