@@ -45,7 +45,7 @@ $sql_statement= "INSERT INTO basketproducts(basket_id, user_id, product_id, coun
 mysqli_query($db, $sql_statement);
 
 
-header('Location: products.php');
+
 exit;
 
 ?>

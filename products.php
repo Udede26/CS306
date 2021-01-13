@@ -133,11 +133,7 @@
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-<<<<<<< HEAD
-              echo "There is no product in the cart</li>";
-=======
               
->>>>>>> ef6d33addb6f1e45def641dfb196593b604b42f0
           }
             ?>
           </div>
@@ -234,7 +230,7 @@
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
-        echo "<form class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+        echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
         echo   "<div class='media-body order-2 order-lg-1'>";
         echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
@@ -244,11 +240,11 @@
                       <h6 class='font-weight-bold my-2'>$price $</h6>
                       
                         </div>" . "<div class='form-group' align='center'>
-                        <form  action='test.php' method='POST'>
+                        <form  action='addToCard.php' method='POST'>
                         
-                        <input style='width: 50px' value = 1 class='form-control my-2' name='Amount' type='text' placeholder='Amount' aria-label='Amount'>
+                        <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>
                       
-                        <button type='submit sign in' class='w-10 btn btn-lg btn-primary' id ='btn' name='product_ID' value='$id' >Add to Cart </button>
+                        <button type='submit sign in' class='w-10 btn btn-lg btn-primary' id ='btn' name='product_id' value='$id' >Add to Cart </button>
                         </form>
                       </div>
                       <br>
@@ -260,7 +256,7 @@
      echo"</form>";
       
 
-        echo  "</form>";
+        echo  "</div>";
         echo "</li>";
 
       }
