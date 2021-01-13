@@ -1,7 +1,8 @@
-<!doctype html>
-<html lang="en">
+ <?php session_start();  ?>
+ <!doctype html>
+ <html lang="en">
 
-<head>
+ <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
@@ -10,7 +11,6 @@
   <title>Album example · Bootstrap v5.0</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-
 
 
   <!-- Bootstrap core CSS -->
@@ -44,8 +44,7 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-              <li><a style="color: 	#FFFFFF">name </a></li>
-              <li><a style="color: 	#FFFFFF">surname</a></li>
+              <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
@@ -168,10 +167,10 @@
       </div>
       <br>
       </br>
-      <button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Apply Filter(s)</button>
+      <button class='w-10 btn btn-lg btn-primary' name='applyfilterbutton' type='submit sign in'>Apply Filter(s)</button>
       <br>
       </br>
-      <button class='w-10 btn btn-lg btn-primary' type='submit sign in' id="reset">Reset Filter(s)</button>
+      <button class='w-10 btn btn-lg btn-primary' name='resetfilterbutton' type='submit sign in' id="reset">Reset Filter(s)</button>
     </div>
 
 
@@ -190,6 +189,7 @@
         $description = $row['product_description'];
         $price = $row['price'];
         $brand = $row['brand'];
+       
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
@@ -197,6 +197,7 @@
         echo   "<div class='media-body order-2 order-lg-1'>";
         echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
+
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
         echo "<div class='mt-0 font-weight-bold mb-2'>
                       <h6 class='font-weight-bold my-2'>$price $</h6>
@@ -218,9 +219,15 @@
                       <br>
                       </br>";
 
-        echo "<button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>";
+      echo "<button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>";
+    echo"<form action='productinfo.php' method='POST'>";
+     echo"<button type='submit sign in' class='w-10 btn btn-lg btn-primary' name='go' value='$product_name' >Go to Product </button>";
+     echo"</form>";
+      
+
         echo  "</div>";
         echo "</li>";
+
       }
       echo "</table>";
 
@@ -237,7 +244,7 @@
       <p class="float-end mb-1">
         <a href="#">Back to top</a>
       </p>
-      <p class="mb-1"> All rights reserved to &copy;Ahmet ltd. AŞ. </p>
+      <p class="mb-1"> All rights reserved to &copy;BuyZone Group </p>
       <p class="mb-0">2020-2021 </p>
     </div>
   </footer>
