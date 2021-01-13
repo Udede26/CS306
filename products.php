@@ -91,9 +91,14 @@
             }
 
             $result = mysqli_query($db, "SELECT* FROM BasketProducts BP, Product P, Basket B WHERE BP.user_id=$user_id AND P.product_id=BP.product_id AND B.user_id=BP.user_id");
-
+            $total_sag_ust =0;
           if(mysqli_num_rows($result)>0)
           {
+            
+            echo"<div id='cartheader'>";
+            echo"<a id='total'> Total: $$total_sag_ust </a>";
+            echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+           echo"</div>";
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
@@ -102,10 +107,7 @@
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
               
-              echo"<div id='cartheader'>";
-              echo"<a id='total'> Total: $$total_sag_ust </a>";
-              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
-             echo"</div>";
+             
 
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
@@ -156,6 +158,8 @@
         <h6 class="p-1 border-bottom">Category</h6>
         <fieldset>
           <p>
+          <div class='form-inline border rounded p-md-2 my-2'> <input value='default' type='radio' name='type' id='notugly' checked='checked'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>All</label> </div>
+ 
         <?php
 
             $db = mysqli_connect('localhost', 'root', '', 'step4');
@@ -167,9 +171,10 @@
 
             while ($row = mysqli_fetch_assoc($result)) {
               $category_name = $row['category_name'];
-              echo "<div class='form-inline border rounded p-md-2 my-2'> <input value='$category_name'type='radio' name='type' id='notugly' checked='checked'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>$category_name</label> </div>";
+              echo "<div class='form-inline border rounded p-md-2 my-2'> <input value='$category_name'type='radio' name='type' id='notugly'> <label for='notugly' class='pl-1 pt-sm-0 pt-1'>$category_name</label> </div>";
             }
             ?>
+           
             </p>
         </fieldset>
       </div>
@@ -189,10 +194,27 @@
         <h6 class="p-1 border-bottom">Rating</h6>
         <fieldset>
           <p>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>0' checked="checked">  <label for="notugly" class="pl-1 pt-sm-0 pt-1">Any</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
+          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' > <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>0.5'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>0.5</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
-          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' checked="checked"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
+          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' > <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
           </p>
+        </fieldset>
+      </div>
+      <div>
+        <h6 class="p-1 border-bottom">Rating</h6>
+        <fieldset>
+          <p>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='default' checked="checked"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Default</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_ascdending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Price Ascending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Price Descending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='name_ascending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">A-Z</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='name_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Z-A</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='rating_ascending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Rating Ascending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='rating_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Rating Descending</label> </div>
+        </p>
         </fieldset>
       </div>
       <br>
@@ -226,13 +248,13 @@
         $price = $row['price'];
         $brand = $row['brand'];
         $id = $row['product_id'];
-       
+        $image_url = $row['product_picture'];
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
         echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
         echo   "<div class='media-body order-2 order-lg-1'>";
-        echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
+        echo      "</div><img src='$image_url' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
 
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
