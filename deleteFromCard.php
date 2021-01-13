@@ -56,6 +56,6 @@ $sql_statement = "DELETE FROM  basketproducts WHERE basket_id = $basketid AND pr
 mysqli_query($db, $sql_statement);
 
 
-header('Location:checkout.php');
+header('Location:home.php');
 exit;
 ?>
