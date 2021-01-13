@@ -36,8 +36,7 @@ if(!empty($_POST['sign_in_email']) && !empty($_POST['sign_in_password']))
 else
 {
 
-   //echo ("<script>alert('Please fill in all the areas!"."<br>"."Redirecting to login page...')</script");
-   //echo("<script>window.location = 'index.php';</script>");
-   echo "'Please fill in all the areas!"."<br>"."Redirecting to login page...";
+   echo ("<script>alert('Please fill in all the areas!"."<br>"."Redirecting to login page...')</script");
+   echo("<script>window.location = 'index.html';</script>");
 }
 ?>
