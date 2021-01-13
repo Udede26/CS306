@@ -126,22 +126,24 @@
   <h2 class="fw-light text-center"><strong>Your Information</strong></h2>
 
   <div class="album py-5 bg-light text-center">
-        <p class="text-center"> First Name: Ufuk<form action="search.php" method="POST">
+          <form action="change_user_info.php" mehotd="POST">
+        <p class="text-center"> First Name: Ufuk
             <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </form> </p>
-        <p class="text-center"> Last Name: Dede<form action="search.php" method="POST">
+          </p>
+        <p class="text-center"> Last Name: Dede
             <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </form></p>
-        <p class="text-center"> Address: Basiskele mah. no 39<form action="search.php" method="POST">
+          </p>
+        <p class="text-center"> Address: Basiskele mah. no 39
             <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </form> </p>
-          <p class="text-center"> New Password: <form action="search.php" method="POST">
+          </p>
+          <p class="text-center"> New Password: 
             <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </form> </p>
-          <p class="text-center"> New Password Again: <form action="search.php" method="POST">
+           </p>
+          <p class="text-center"> New Password Again: 
             <input type="input" id="mysearch" name="mysearch" placeholder="Change" aria-label="Change">
-          </form> </p>
+           </p>
         <button> Apply Changes</button>
+        </form>
   </div>
 </main>
 

@@ -181,7 +181,7 @@
 
               echo "<div class='col'> <div class='card shadow-sm'>
               <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
-              <div class='card-body'>
+              <form class='card-body'>
               <h3 class='text-center strong'> $product_name</h3>
               <p class='lead text-muted text-center'>$brand</p>
                 <p class='card-text'>$description</p>
@@ -206,7 +206,7 @@
                   <h4> $price $</h4>  
                 </div>
                 
-              </div>
+              </form>
             </div>
             </div>";
             $count = $count + 1;

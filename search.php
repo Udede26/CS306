@@ -199,7 +199,7 @@
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
-        echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+        echo "<form class='media align-items-lg-center flex-column flex-lg-row p-3'>";
         echo   "<div class='media-body order-2 order-lg-1'>";
         echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
@@ -225,7 +225,7 @@
                       </br>";
 
         echo "<button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>";
-        echo  "</div>";
+        echo  "</form>";
         echo "</li>";
       }
       echo "</table>";
