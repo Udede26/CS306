@@ -1,3 +1,6 @@
+<?php 
+ session_start();
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -42,15 +45,15 @@
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Welcome!</h4>
             <ul>
-              <li><a style="color: 	#FFFFFF">name </a></li>
-              <li><a style="color: 	#FFFFFF">surname</a></li>
+              <li><a style="color:  #FFFFFF"> <?php echo $_SESSION['user_signin_name']." ".$_SESSION['user_signin_surname']; ?> </a></li>
+              
             </ul>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-            <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
+              <li><a href="edit_user_info.php" style="color:  #FFFFFF">Edit User Information </a></li>
+              <li><a href="history.php" style="color:   #FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>
@@ -82,57 +85,70 @@
 
           <div class="dropdown-content" id="mydropdown">
 
-          
-
             <?php
-            
+         
+
+            $user_id = $_SESSION['users_id'];
 
             $db = mysqli_connect('localhost', 'root', '', 'step4');
             if ($db->connect_errno > 0) {
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $statement2 ="SELECT  P.product_name AS product_name2, P.product_description AS product_description2, P.price AS price2 , BP.countt AS counttt2 ,P.brand AS brand2 FROM product P, basketproducts BP WHERE BP.user_id = 4 AND P.product_id = BP.product_id";
+            $result = mysqli_query($db, "SELECT* FROM BasketProducts BP, Product P, Basket B WHERE BP.user_id=$user_id AND P.product_id=BP.product_id AND B.user_id=BP.user_id");
 
-            $statement3 ="SELECT B.total_cost AS total FROM basket B WHERE B.user_id = 4 ";
-
-            $result2 = mysqli_query($db, $statement2);
-
-            $result3 = mysqli_query($db, $statement3);
-
-            while ($row = mysqli_fetch_assoc($result3)) {
-              $total = $row['total'];
-              echo "<header id='cartheader'>
-            <a id='total'> Total: $total </a>
-           <a href='checkout.php'> <button id='proceed' float:right> Proceed to Checkout</button></a>
-        </header>";
-            }
-
-          
-            
-            while ($row = mysqli_fetch_assoc($result2)) {
-              $product_name2 = $row['product_name2'];
-              $description2 = $row['product_description2'];
-              $price2 = $row['price2'];
-              $brand2 = $row['brand2'];
-              $count2  = $row['counttt2'];
-              $product_cost2 = $price2 * $count2;
+          if(mysqli_num_rows($result)>0)
+          {
+            echo"<div id='cartheader'>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
+            while ($row = mysqli_fetch_assoc($result)) {
+              $product_name = $row['product_name'];
+              $description = $row['product_description'];
+              $price = $row['price'];
+              $brand = $row['brand'];
+              $count_sag_ust = $row['countt'];
+              $total_sag_ust =$row['total_cost'];
+              $product_id = $row['product_id'];
+              
 
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
               echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
-              echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name2</h5>";
-              echo       "<p class='font-italic text-muted mb-0 small'>$description2</p>";
+              echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
+              echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
-              <h6 class='font-weight-bold my-2'>Amount: $count2 </h6>
-                <h6 class='font-weight-bold my-2'>Total: $product_cost2 $</h6>
+                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>
+                <form action='deleteFromCard.php' method='POST'>
                 
                 
-                  </div>";
-              
+                 
+                <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+                <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+                </form>
+                <form action='deleteFromCard.php' method='POST'>
+                <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
+                </form>
+                
+                  </div></li>";
             }
+          }
+          else
+          {
+             echo "There is no product in the cart";
+             echo"<div id='cartheader'>";
+              echo"<a id='total'> Total: $0 </a>";
+              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+             echo"</div>";
+
+              echo "<li class='list-group-item'>";
+              echo "<!-- Custom content-->";
+              echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
+              echo   "<div class='media-body order-2 order-sm-1'>";
+              
+          }
             ?>
             
           </div>
@@ -178,7 +194,7 @@
 
               echo "<div class='col'> <div class='card shadow-sm'>
               <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
-              <div class='card-body'>
+              <form class='card-body'>
               <h3 class='text-center strong'> $product_name</h3>
               <p class='lead text-muted text-center'>$brand</p>
                 <p class='card-text'>$description</p>
@@ -203,7 +219,7 @@
                   <h4> $price $</h4>  
                 </div>
                 
-              </div>
+              </form>
             </div>
             </div>";
             $count = $count + 1;

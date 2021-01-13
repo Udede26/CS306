@@ -98,7 +98,7 @@
               $description = $row['product_description'];
               $price = $row['price'];
               $brand = $row['brand'];
-
+              $product_id = $row['product_id'];
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
@@ -110,7 +110,16 @@
                 <h6 class='font-weight-bold my-2'>$price $</h6>
                 
                 
-                  </div>";
+                  </div><form action='deleteFromCard.php' method='POST'>
+                
+                
+                 
+                  <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+                  <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+                  </form>
+                  <form action='deleteFromCard.php' method='POST'>
+                  <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
+                  </form>";
             }
             ?>
           </div>

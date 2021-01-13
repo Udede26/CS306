@@ -139,7 +139,7 @@
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Confirm and Pay</button>
+          <a href="home_after_payment.php"><button class="w-100 btn btn-primary btn-lg" type="submit">Confirm and Pay</button></a>
         </form>
       </div>
     </div>
