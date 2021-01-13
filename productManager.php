@@ -1,15 +1,4 @@
-<?php 
-session_start();
-include "config.php";
 
-$managerName = $_SESSION['managername'];
-$managerSurname = $_SESSION['managersurname'];
-
-// SQL query to select data from database 
-$sql = "SELECT * FROM product ORDER BY product_id"; 
-$result = mysqli_query($db, $sql); 
-
-?>
 
 
 <!DOCTYPE html>
