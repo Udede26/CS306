@@ -38,21 +38,22 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form>
+  <form action="guest_sign_in.php" method="POST">
     <img class="mb-4" src="https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V" alt="" width="144" height="114">
     <h1 class="h3 mb-3 fw-normal"> Welcome!</h1>
     <p class="text-muted"> We still need your information, don't worry we will not sell any of your data :) </p>
 
-    <label for="inputEmail" class="visually-hidden">Email address</label>
-    <input type="text" id="inputEmail" name="name" class="form-control" placeholder="Name"  >
+    <label for="inputName" class="visually-hidden">Email address</label>
+    <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Name"  >
 
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input type="text" id="inputPassword" name="surname" class="form-control" placeholder="Surname" >
+    <label for="inputSurname" class="visually-hidden">Password</label>
+    <input type="text" id="inputSurname" name="inputSurname" class="form-control" placeholder="Surname" >
 
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input type="text" id="inputPassword" name="address" class="form-control" placeholder="Address" >
+    <label for="inputAddress" class="visually-hidden">Password</label>
+    <input type="text" id="inputAddress" name="inputAddress" class="form-control" placeholder="Address" >
     
-    <a href="home.php" type="submit guest" <button onclick="home.php" class="w-100 btn btn-lg btn-primary">Enter</button></a>
+    <button class="w-100 btn btn-lg btn-primary" id="mybutton" type="submit_sign_up" name="guest_button" >Enter</button>
+
     <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
   </form>
 </main>
