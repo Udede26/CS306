@@ -38,37 +38,41 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form action="signup.php" method="POST">
+          
+      
+    <form action="signup.php" method="POST">
     <img class="mb-4" src="https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V" alt="" width="144" height="114">
     <h1 class="h3 mb-3 fw-normal">Welcome!</h1>
     <label for="inputEmail" class="visually-hidden">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address"  >
+    <input type="email" id="inputEmail" name="user_email" class="form-control" placeholder="Email address" required><br>
 
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input type="text" id="inputPassword" name="name" class="form-control" placeholder="Name" >
+    <label for="inputName" class="visually-hidden">Name</label>
+    <input type="text" id="inputName" name="user_f_name" class="form-control" placeholder="Name" ><br>
+
+    <label for="inputSurname" class="visually-hidden" >Surname:</label>
+    <input type="text" id="inputSurname" name="user_l_name" class="form-control" placeholder="Surname" ><br>
 
     <label for="inputPassword" class="visually-hidden" >Password</label>
-    <input type="text" name="surname" class="form-control" placeholder="Surname" >
+    <input type="password" id="inputPassword" name="user_password" class="form-control" placeholder="Password" required><br>
 
-    <label for="inputPassword" class="visually-hidden" >Password</label>
-    <input type="password" name="password" class="form-control" placeholder="Password" >
+    <label for="inputPasswordAgain" class="visually-hidden">Password again</label>
+    <input type="password" id="inputPasswordAgain" name="user_password_again" class="form-control" placeholder="Password again" required> <br>
 
-    <label for="inputPassword" class="visually-hidden">Password again</label>
-    <input type="password" name="password_again" class="form-control" placeholder="Password again" >
+    <label for="inputAddress" class="visually-hidden" >Adress</label>
+    <textarea id="inputAddress" name="user_address" class="form-control" placeholder="Type your address"> </textarea> <br>
 
+    <label for="inputPhone" class="visually-hidden">Phone number</label>
+    <input type="text" id="inputPhone" name="phone" class="form-control" placeholder="Phone number"><br>
     
-    <label for="inputPassword" class="visually-hidden" >Password</label>
-    <input type="text" name="address" class="form-control" placeholder="Address" >
-
-    <label for="inputPassword" class="visually-hidden">Password again</label>
-    <input type="text" id="inputPassword" name="phone_number" class="form-control" placeholder="Phone number" >
-    
-    <button class="w-100 btn btn-lg btn-primary" id="mybutton" type="submit_sign_up">Sign up</button>
+    <button class="w-100 btn btn-lg btn-primary" id="mybutton" type="submit_sign_up" name="signin_button" >Sign up</button>
 
     <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
-  </form>
-</main>
+    </form>
+      
 
+  
+</main>
+ 
 
     
   </body>
