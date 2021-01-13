@@ -50,8 +50,8 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color:#FFFFFF">Account</h4>
             <ul id="usersettings">
-              <li><a href="edit_user_info.php" style="color: 	#FFFFFF">Edit User Information </a></li>
-              <li><a href="history.php" style="color: 	#FFFFFF">Order History</a></li>
+              <li><a href="edit_user_info.php" style="color:  #FFFFFF">Edit User Information </a></li>
+              <li><a href="history.php" style="color:   #FFFFFF">Order History</a></li>
             </ul>
           </div>
         </div>
@@ -123,7 +123,7 @@
           }
           else
           {
-             
+             echo "There is no product in the cart";
              echo"<div id='cartheader'>";
               echo"<a id='total'> Total: $0 </a>";
               echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
@@ -133,7 +133,11 @@
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
+<<<<<<< HEAD
               echo "There is no product in the cart</li>";
+=======
+              
+>>>>>>> ef6d33addb6f1e45def641dfb196593b604b42f0
           }
             ?>
           </div>
@@ -151,7 +155,7 @@
 
 
     <div id="sidebar">
-    <form action="test.php" method="POST">
+    <form action="filtered.php" method="POST">
       <div>
         <h6 class="p-1 border-bottom">Category</h6>
         <fieldset>
@@ -189,7 +193,7 @@
         <h6 class="p-1 border-bottom">Rating</h6>
         <fieldset>
           <p>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>3'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>3</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>0.5'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>0.5</label> </div>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
           <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' checked="checked"> <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
           </p>
