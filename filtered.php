@@ -11,7 +11,12 @@
   <title>Album example · Bootstrap v5.0</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+ 
+ <!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+   <!-- Font Awesome Icon Library -->
 
   <!-- Bootstrap core CSS -->
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -202,12 +207,12 @@
         <h6 class="p-1 border-bottom">Rating</h6>
         <fieldset>
           <p>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>0' checked="checked">  <label for="notugly" class="pl-1 pt-sm-0 pt-1">Any</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
-          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' > <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>0.5'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>0.5</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly" value='>4'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
-          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly" value='>4.5' > <label for="ugly" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly8" value='>0' checked="checked">  <label for="notugly8" class="pl-1 pt-sm-0 pt-1">Any</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly9" value='>4'> <label for="notugly9" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
+          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly10" value='>4.5' > <label for="ugly10" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly11" value='>0.5'> <label for="notugly11" class="pl-1 pt-sm-0 pt-1">>0.5</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="rating" id="notugly12" value='>4'> <label for="notugly12" class="pl-1 pt-sm-0 pt-1">>4</label> </div>
+          <div class="form-inline border rounded p-sm-2 my-2"> <input type="radio" name="rating" id="ugly13" value='>4.5' > <label for="ugly13" class="pl-1 pt-sm-0 pt-1">>4.5</label> </div>
           </p>
         </fieldset>
       </div>
@@ -216,12 +221,12 @@
         <fieldset>
           <p>
           <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='default' checked="checked"> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Default</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_ascdending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">Price Ascending</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='price_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Price Descending</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='name_ascending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">A-Z</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='name_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Z-A</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='rating_ascending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Rating Ascending</label> </div>
-          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly" value='rating_descending'> <label for="notugly" class="pl-1 pt-sm-0 pt-1">>Rating Descending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly2" value='price_ascending'> <label for="notugly2" class="pl-1 pt-sm-0 pt-1">Price Ascending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly3" value='price_descending'> <label for="notugly3" class="pl-1 pt-sm-0 pt-1">>Price Descending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly4" value='name_ascending'> <label for="notugly4" class="pl-1 pt-sm-0 pt-1">A-Z</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly5" value='name_descending'> <label for="notugly5" class="pl-1 pt-sm-0 pt-1">>Z-A</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly6" value='rating_ascending'> <label for="notugly6" class="pl-1 pt-sm-0 pt-1">>Rating Ascending</label> </div>
+          <div class="form-inline border rounded p-md-2 my-2"> <input type="radio" name="orderby" id="notugly7" value='rating_descending'> <label for="notugly7" class="pl-1 pt-sm-0 pt-1">>Rating Descending</label> </div>
         </p>
         </fieldset>
       </div>
@@ -253,47 +258,49 @@
     $max_price = $_POST['max'];
     $rating = $_POST['rating'];
     $order = $_POST['orderby'];
-    $Query_string = "SELECT product.product_name, product.product_description, product.price, product.brand, product.product_picture FROM product, productcategory, category WHERE product.product_id = productcategory.product_id AND productcategory.category_id = category.category_id";
+
+    $Query_string = "SELECT product.product_name, product.product_description, product.price, product.brand, product.product_picture, product.rating FROM product, productcategory, category WHERE product.product_id = productcategory.product_id AND productcategory.category_id = category.category_id";
     if($category != 'default')
     {
-    	$Query_string = $Query_string ." AND category.category_name = \"$category\"";
+      $Query_string = $Query_string ." AND category.category_name = \"$category\"";
     }  
 
     $Query_string = $Query_string ." AND product.rating $rating AND product.price BETWEEN $min_price AND $max_price";
 
     if($order == 'price_ascending')
+
     {
-    	$Query_string = $Query_string." ORDER BY product.price ASC";
+      $Query_string = $Query_string." ORDER BY product.price ASC";
     }
     else if($order == 'price_descending')
     {
-    	$Query_string = $Query_string." ORDER BY product.price DESC";
+      $Query_string = $Query_string." ORDER BY product.price DESC";
     }
     else if($order == 'name_ascending')
     {
-    	$Query_string = $Query_string." ORDER BY product.product_name ASC";
+      $Query_string = $Query_string." ORDER BY product.product_name ASC";
     }
     else if($order == 'name_descending')
     {
-    	$Query_string = $Query_string." ORDER BY product.product_name DESC";
+      $Query_string = $Query_string." ORDER BY product.product_name DESC";
     }
     else if($order  == 'rating_ascending')
     {
-    	$Query_string = $Query_string." ORDER BY product.rating ASC";
+      $Query_string = $Query_string." ORDER BY product.rating ASC";
     }
     else if($order  =='rating_descending')
     {
-    	$Query_string = $Query_string." ORDER BY product.rating DESC";
+      $Query_string = $Query_string." ORDER BY product.rating DESC";
     }
-    echo $Query_string;
-	mysqli_query($db, $Query_string);
-     
-      while ($row = mysqli_fetch_assoc($result)) {
+    
+  $resultt = mysqli_query($db, $Query_string);
+  
+      while ($row = mysqli_fetch_assoc($resultt)) {
         $product_name = $row['product_name'];
         $description = $row['product_description'];
         $price = $row['price'];
         $brand = $row['brand'];
-       
+        $product_rating = $row['rating'];
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
@@ -301,7 +308,45 @@
         echo   "<div class='media-body order-2 order-lg-1'>";
         echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
+         if(!is_null($product_rating)){
+              if($product_rating==5.0)
+              {
+                for($i=0;$i<5;$i++) {
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+              else
+              {
+                  if($product_rating==0.0 || $product_rating==1.0 || $product_rating==2.0 || $product_rating==3.0 || $product_rating==4.0)
+                  {
+                    for($x=0;$x<$product_rating;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+                 else
+                 {
+                  for($x=0;$x<$product_rating-1;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
 
+                 }
+
+                
+                
+              if ($product_rating-$x!=0) {
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                $x++;
+              }
+
+              while ($x<5) {
+                 echo "<span class= 'fa fa-star-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 $x++;
+               } 
+              }
+             echo " ".$product_rating;
+            }
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
         echo "<div class='mt-0 font-weight-bold mb-2'>
                       <h6 class='font-weight-bold my-2'>$price $</h6>
