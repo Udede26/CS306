@@ -11,7 +11,12 @@
   <title>Album example · Bootstrap v5.0</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+  
+ <!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+   <!-- Font Awesome Icon Library -->
 
   <!-- Bootstrap core CSS -->
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -258,6 +263,7 @@
         $brand = $row['brand'];
         $id = $row['product_id'];
         $product_picture = $row['product_picture'];
+        $product_rating = $row['rating'];
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
@@ -265,6 +271,45 @@
         echo   "<div class='media-body order-2 order-lg-1'>";
         echo      "</div><img src='$product_picture' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
+        if(!is_null($product_rating)){
+              if($product_rating==5.0)
+              {
+                for($i=0;$i<5;$i++) {
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+              else
+              {
+                  if($product_rating==0.0 || $product_rating==1.0 || $product_rating==2.0 || $product_rating==3.0 || $product_rating==4.0)
+                  {
+                    for($x=0;$x<$product_rating;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+                 else
+                 {
+                  for($x=0;$x<$product_rating-1;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+
+                 }
+
+                
+                
+              if ($product_rating-$x!=0) {
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                $x++;
+              }
+
+              while ($x<5) {
+                 echo "<span class= 'fa fa-star-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 $x++;
+               } 
+              }
+             echo " ".$product_rating;
+            }
 
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
         echo "<div class='mt-0 font-weight-bold mb-2'>
@@ -296,7 +341,7 @@
 
       ?>
     </div>
-ö
+
 
   </main>
 
