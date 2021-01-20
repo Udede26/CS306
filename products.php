@@ -103,6 +103,8 @@
             echo"<div id='cartheader'>";         
             echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
            echo"</div>";
+           echo"<br>";
+              echo"<br>";
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
@@ -136,6 +138,7 @@
                 
                  echo" </div></li>";
             }
+           echo " "."Total: $total_sag_ust";
           }
           else
           {
