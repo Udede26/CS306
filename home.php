@@ -140,7 +140,7 @@
                 
                   </div></li>";
             }
-            echo " "."Total: $total_sag_ust";
+            echo " "."Total: $total_sag_ust$";
           }
           else
           {
@@ -191,7 +191,7 @@
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT P.rating AS rating, P.product_name AS product_name,P.product_description AS product_description,P.product_picture AS product_picture,P.brand AS brand,P.price AS price, SUM(OB.counttt) AS total_count FROM Product P, Place_Order O, OrderedBasketProducts OB WHERE P.product_id = OB.product_id AND OB.order_id = O.order_id GROUP BY P.product_name ORDER BY total_count DESC");
+            $result = mysqli_query($db, "SELECT P.product_id as product_id, P.rating AS rating, P.product_name AS product_name,P.product_description AS product_description,P.product_picture AS product_picture,P.brand AS brand,P.price AS price, SUM(OB.counttt) AS total_count FROM Product P, Place_Order O, OrderedBasketProducts OB WHERE P.product_id = OB.product_id AND OB.order_id = O.order_id GROUP BY P.product_name ORDER BY total_count DESC");
             $count =0;
             while ($row = mysqli_fetch_assoc($result) And ($count < 9)) {
               $product_name = $row['product_name'];
@@ -199,6 +199,7 @@
               $price = $row['price'];
               $brand = $row['brand'];
               $product_rating = $row['rating'];
+              $id = $row['product_id'];
 
               echo "<div class='col'> <div class='card shadow-sm'>
               <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
@@ -249,28 +250,24 @@
 
 
                 echo"<p class='card-text'>$description</p>
-                <div class='d-flex justify-content-between align-items-center'>
-                  <div class='form-group'>
-                          <select class='form-control' id='exampleSelect1' style='max-width:40%;'>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                          </select>
-  
-                    <button type='button' class='btn btn-sm btn-outline-secondary'>Add to Cart</button>      
-                             
-                  </div>
+                <div class='d-flex justify-content-between align-items-center'>              
                   <h4> $price $</h4>  
                 </div>
                 
-              </form>
+              <div class='form-group' align='center'>
+                        <form  action='addToCard.php' method='POST'>
+                        
+                        <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>
+                      
+                        <button type='submit sign in' style=' Background:OrangeRed; Color:white' class='btn btn-m btn-outline-secondary' value='$id'  >Add to Cart </button>
+                        </form>
+                      </div>
+           <div class='form-group' align='center'>
+        <form action='productinfo.php' method='POST'>
+      <button type='submit sign in' style=' Background:LightSeaGreen; Color:white' class='btn btn-m btn-outline-secondary' name='go' value='$product_name' >Go to Product </button>
+      </form>
+       </div>
+       <br>
             </div>
             </div>";
             $count = $count + 1;
