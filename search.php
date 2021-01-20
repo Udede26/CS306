@@ -289,11 +289,23 @@
                       <br>
                       </br>";
 
-        echo "<button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>";
         echo  "</form>";
-        echo "</li>";
+      echo "  <div class='form-group' align='center'>
+                        <form  action='addToCard.php' method='POST'>
+
+        <button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>
+        </form>
+                      </div>
+                      <br>
+        <div class='form-group' align='center'>              
+        <form action='productinfo.php' method='POST'>
+     <button type='submit sign in' class='w-10 btn btn-lg btn-primary' name='go' value='$product_name' >Go to Product </button>
+   </form>
+     </div>
+          <br>
+       </li>";
       }
-      echo "</table>";
+      echo"</table>";
 
 
       ?>
