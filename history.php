@@ -108,14 +108,14 @@
               $brand = $row['brand'];
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
-              $product_id =$row['product_id'];
-             
+              $product_id = $row['product_id'];
+              $product_picture = $row['product_picture'];
               
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-              echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
+              echo      "</div><img src=$product_picture alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
@@ -189,7 +189,7 @@
                <button class='w-10 btn btn-sm btn-primary' type='submit sign up'>View Invoice</button>
          </form> ";
 
-              $statement ="SELECT P.product_name AS product_name, OBP.total_price AS total_price, OBP.counttt AS counttt FROM orderedbasketproducts OBP, product P 
+              $statement ="SELECT P.product_picture, P.product_name AS product_name, OBP.total_price AS total_price, OBP.counttt AS counttt FROM orderedbasketproducts OBP, product P 
               WHERE  OBP.order_id  = '$order_id' AND OBP.product_id = P.product_id";
 
               $newresult = mysqli_query($db,$statement);
@@ -198,9 +198,10 @@
                   $product_name = $myrow['product_name'];
                   $total_price = $myrow['total_price'];
                   $count = $myrow['counttt'];
+                  $product_picture = $myrow['product_picture'];
 
                 echo   "<div class='media-body order-2 order-sm-1'>";
-                echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
+                echo      "</div><img src=$product_picture alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
                 echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
                 echo       "<p class='font-italic text-muted mb-0 small'>$total_price$</p>";
                 echo       "<p class='font-italic text-muted mb-0 small'>Amount: $count</p>";
