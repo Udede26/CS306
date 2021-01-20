@@ -380,7 +380,8 @@ WHERE U2.user_id = OB2.user_id AND OB2.user_id=C2.user_id  AND C2.product_id='$p
 FROM Users U, Comments C, OrderedBasketProducts OB , Product P, Ratings R
 WHERE U.user_id = OB.user_id AND OB.user_id=C.user_id AND R.user_id = U.user_id AND R.product_id=P.product_id AND    C.product_id = P.product_id AND P.product_id='$productid' AND C.product_id IN (SELECT OB2.product_id
                     FROM OrderedBasketProducts OB2
-                     WHERE OB2.basket_id= OB.basket_id)");
+                     WHERE OB2.basket_id= OB.basket_id)
+                     GROUP BY U.first_name, U.last_name, C.user_comment, R.user_rating");
 
   if(mysqli_num_rows($result3)>0){
     $if_no_comment=false;
