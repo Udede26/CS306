@@ -13,7 +13,11 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
-    
+     <!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+   <!-- Font Awesome Icon Library -->
 
     <!-- Bootstrap core CSS -->
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -102,6 +106,8 @@
             echo"<div id='cartheader'>";
               echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
              echo"</div>";
+             echo"<br>";
+              echo"<br>";
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
@@ -134,6 +140,7 @@
                 
                   </div></li>";
             }
+            echo " "."Total: $total_sag_ust";
           }
           else
           {
@@ -184,20 +191,64 @@
               die('Baglanamadim [' . $db->connect_error . ']');
             }
 
-            $result = mysqli_query($db, "SELECT P.product_name AS product_name,P.product_description AS product_description,P.product_picture AS product_picture,P.brand AS brand,P.price AS price, SUM(OB.counttt) AS total_count FROM Product P, Place_Order O, OrderedBasketProducts OB WHERE P.product_id = OB.product_id AND OB.order_id = O.order_id GROUP BY P.product_name ORDER BY total_count DESC");
+            $result = mysqli_query($db, "SELECT P.rating AS rating, P.product_name AS product_name,P.product_description AS product_description,P.product_picture AS product_picture,P.brand AS brand,P.price AS price, SUM(OB.counttt) AS total_count FROM Product P, Place_Order O, OrderedBasketProducts OB WHERE P.product_id = OB.product_id AND OB.order_id = O.order_id GROUP BY P.product_name ORDER BY total_count DESC");
             $count =0;
             while ($row = mysqli_fetch_assoc($result) And ($count < 9)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
               $price = $row['price'];
               $brand = $row['brand'];
+              $product_rating = $row['rating'];
 
               echo "<div class='col'> <div class='card shadow-sm'>
               <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
               <form class='card-body'>
               <h3 class='text-center strong'> $product_name</h3>
-              <p class='lead text-muted text-center'>$brand</p>
-                <p class='card-text'>$description</p>
+             
+
+             <p class='lead text-muted text-center'>$brand</p>";
+                 if(!is_null($product_rating)){
+              if($product_rating==5.0)
+              {
+                for($i=0;$i<5;$i++) {
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange; text-align:center' aria-hidden='true'></span>";
+                 }
+               }
+              else
+              {
+                  if($product_rating==0.0 || $product_rating==1.0 || $product_rating==2.0 || $product_rating==3.0 || $product_rating==4.0)
+                  {
+                    for($x=0;$x<$product_rating;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+                 else
+                 {
+                  for($x=0;$x<$product_rating-1;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+
+                 }
+
+                
+                
+              if ($product_rating-$x!=0) {
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                $x++;
+              }
+
+              while ($x<5) {
+                 echo "<span class= 'fa fa-star-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 $x++;
+               } 
+              }
+             echo " ".$product_rating;
+            }
+
+
+                echo"<p class='card-text'>$description</p>
                 <div class='d-flex justify-content-between align-items-center'>
                   <div class='form-group'>
                           <select class='form-control' id='exampleSelect1' style='max-width:40%;'>
