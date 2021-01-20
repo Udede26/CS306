@@ -259,7 +259,7 @@
                         
                         <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>
                       
-                        <button type='submit sign in' style=' Background:OrangeRed; Color:white' class='btn btn-m btn-outline-secondary' value='$id'  >Add to Cart </button>
+                        <button type='submit sign in' style=' Background:OrangeRed; Color:white' class='btn btn-m btn-outline-secondary' name='product_id' value='$id'  >Add to Cart </button>
                         </form>
                       </div>
            <div class='form-group' align='center'>
