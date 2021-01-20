@@ -349,11 +349,11 @@ WHERE PC.category_id IN (SELECT PC2.category_id
 
             if($recommend==true)
         {
-          echo "<br>"."<i> Out of $product_name? Refill your stock! </i>"; 
+          echo "<br>"."<i style='Color:tomato'> Out of $product_name? Refill your stock! </i>"; 
         }
         else if ($recommend_new==true)
         {
-          echo "<br>"."<i> You might be interested in this, based on your previous preferences </i>"; 
+          echo "<br>"."<i style='Color:DarkGreen'> You might be interested in this, based on your previous preferences </i>"; 
         }
 
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
