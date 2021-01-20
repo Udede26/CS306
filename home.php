@@ -253,7 +253,7 @@
                 <div class='d-flex justify-content-between align-items-center'>              
                   <h4> $price $</h4>  
                 </div>
-                
+                </form>
               <div class='form-group' align='center'>
                         <form  action='addToCard.php' method='POST'>
                         
