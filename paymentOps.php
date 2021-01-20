@@ -78,6 +78,6 @@ $sql_update_basket= "UPDATE Basket
 
 
 
-header('Location: home_after_payment.php');
+header('Location: home.php');
 
 ?>
