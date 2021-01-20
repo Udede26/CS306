@@ -39,6 +39,24 @@ if(!empty($_POST['selectRating']))
  else
 	echo "A problem has occured. Please try again later";
 
+$counter=0;
+$sum_ratings=0;
+$sql_query="SELECT R.user_rating FROM Ratings R WHERE R.product_id=$var2";
+$result_ratings = mysqli_query($db, $sql_query);
+while($roww = mysqli_fetch_assoc($result_ratings))
+{
+  $counter++;
+  $sum_ratings += $roww['user_rating']; 
+
+}
+
+$new_rating = $sum_ratings/$counter;
+
+  $sql_statement7= "UPDATE Product
+                     SET rating = $new_rating
+                     WHERE product_id = $var2";
+
+ mysqli_query($db, $sql_statement7);
 } 
 
 
