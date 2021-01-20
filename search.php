@@ -12,6 +12,11 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
+<!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+   <!-- Font Awesome Icon Library -->
 
 
   <!-- Bootstrap core CSS -->
@@ -108,13 +113,14 @@
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
               $product_id =$row['product_id'];
+              $product_picture = $row['product_picture'];
              
               
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-              echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
+              echo      "</div><img src=$product_picture alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
@@ -133,7 +139,7 @@
                 
                  echo" </div></li>";
             }
-            echo " "."Total: $total_sag_ust$";
+            echo " "."Total: $$total_sag_ust";
           }
           else
           {
@@ -249,7 +255,7 @@
 
        $word = $_SESSION['search'];
 
-      $myquery = "SELECT P.product_name AS product_name, P.product_description AS product_description,P.brand AS brand, P.price AS price
+      $myquery = "SELECT P.product_name AS product_name, P.product_description AS product_description,P.brand AS brand, P.price AS price, P.product_picture AS product_picture, P.product_id AS product_id, P.rating AS rating
       FROM Product P, ProductCategory PC, Category C 
       WHERE ((P.product_id = PC.product_id) AND (PC.category_id = C.category_id)) AND ((C.category_name LIKE '%$word%')
        OR (P.product_name LIKE '%$word%') OR (P.product_description LIKE '%$word%') OR (P.brand LIKE '%$word%'))";
@@ -261,13 +267,97 @@
         $description = $row['product_description'];
         $price = $row['price'];
         $brand = $row['brand'];
+        $product_picture = $row['product_picture'];
+        $id= $row['product_id'];
+        $product_rating= $row['rating'];
+
+        $recommend = false;
+       $recommend_new = false;
+
+       //The products user has purchased
+      $purchased_result = mysqli_query($db, "SELECT OB.product_id
+                                             FROM orderedbasketproducts OB
+                                             WHERE OB.user_id = $user_id
+                                             GROUP BY OB.product_id");
+       while($row2 = mysqli_fetch_assoc($purchased_result))
+       {
+         if($id==$row2['product_id'])
+           $recommend=true;
+
+       }
+       
+       //The products that user has not bought but belong to categories user have purchased from 
+      $products_from_same_categories = mysqli_query($db, "SELECT PC.product_id
+FROM productcategory PC
+WHERE PC.category_id IN (SELECT PC2.category_id
+                         FROM orderedbasketproducts OB, productcategory PC2
+                         WHERE OB.user_id = $user_id AND OB.product_id = PC2.product_id)  AND PC.product_id NOT IN (SELECT OB2.product_id
+                                             FROM orderedbasketproducts OB2
+                                             WHERE OB2.user_id = $user_id
+                                             GROUP BY OB2.product_id)");
+
+        while ($row3 = mysqli_fetch_assoc($products_from_same_categories))
+       {
+         if($id==$row3['product_id'])
+           $recommend_new=true;
+
+       }    
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
         echo "<form class='media align-items-lg-center flex-column flex-lg-row p-3'>";
         echo   "<div class='media-body order-2 order-lg-1'>";
-        echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
+        echo      "</div><img src=$product_picture alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
+        if(!is_null($product_rating)){
+              if($product_rating==5.0)
+              {
+                for($i=0;$i<5;$i++) {
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+              else
+              {
+                  if($product_rating==0.0 || $product_rating==1.0 || $product_rating==2.0 || $product_rating==3.0 || $product_rating==4.0)
+                  {
+                    for($x=0;$x<$product_rating;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+                 else
+                 {
+                  for($x=0;$x<$product_rating-1;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+
+                 }
+
+                
+                
+              if ($product_rating-$x!=0) {
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                $x++;
+              }
+
+              while ($x<5) {
+                 echo "<span class= 'fa fa-star-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 $x++;
+               } 
+              }
+             echo " ".$product_rating;
+            }
+
+
+        if($recommend==true)
+        {
+          echo "<br>"."<i style='Color:tomato'> Out of $product_name? Refill your stock! </i>"; 
+        }
+        else if ($recommend_new==true)
+        {
+          echo "<br>"."<i style='Color:DarkGreen'> You might be interested in this, based on your previous preferences </i>"; 
+        }
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
         echo "<div class='mt-0 font-weight-bold mb-2'>
                       <h6 class='font-weight-bold my-2'>$price $</h6>
@@ -290,19 +380,21 @@
                       </br>";
 
         echo  "</form>";
-      echo "  <div class='form-group' align='center'>
+      echo "<div class='form-group' align='center'>
                         <form  action='addToCard.php' method='POST'>
-
-        <button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>
-        </form>
+                        
+                        <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>
+                      
+                        <button type='submit sign in' style=' Background:OrangeRed; Color:white' class='btn btn-m btn-outline-secondary' name='product_id' value='$id'  >Add to Cart </button>
+                        </form>
                       </div>
-                      <br>
-        <div class='form-group' align='center'>              
+           <div class='form-group' align='center'>
+           <br>
         <form action='productinfo.php' method='POST'>
-     <button type='submit sign in' class='w-10 btn btn-lg btn-primary' name='go' value='$product_name' >Go to Product </button>
-   </form>
-     </div>
-          <br>
+      <button type='submit sign in' style=' Background:RoyalBlue; Color:white' class='btn btn-m btn-outline-secondary' name='go' value='$product_name' >Go to Product </button>
+      </form>
+       </div>
+       <br>
        </li>";
       }
       echo"</table>";
