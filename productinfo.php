@@ -104,6 +104,12 @@
 
           if(mysqli_num_rows($result)>0)
           {
+            
+            echo"<div id='cartheader'>";         
+            echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
+           echo"</div>";
+           echo"<br>";
+              echo"<br>";
             while ($row = mysqli_fetch_assoc($result)) {
               $product_name = $row['product_name'];
               $description = $row['product_description'];
@@ -111,12 +117,9 @@
               $brand = $row['brand'];
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
+              $product_id =$row['product_id'];
+             
               
-              echo"<div id='cartheader'>";
-              echo"<a id='total'> Total: $$total_sag_ust </a>";
-              echo"<a href='checkout.php'><button id='proceed' float:right> Proceed to Checkout</button></a>";
-             echo"</div>";
-
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
@@ -125,11 +128,22 @@
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
-                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6>
+                <h6 class='font-weight-bold my-2'>$$price x $count_sag_ust </h6><form action='deleteFromCard.php' method='POST'>
                 
                 
-                  </div>";
+                 
+                <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>     
+                <button type='submit' class='btn btn-sm btn-outline-secondary'>Add</button> 
+                </form>
+                <form action='deleteFromCard.php' method='POST'>
+                <button type='submit' class='btn btn-sm btn-outline-secondary'name='product_id' value=$product_id>Delete</button>  
+                </form>
+                ";
+                
+                
+                 echo" </div></li>";
             }
+            echo " "."Total: $total_sag_ust$";
           }
           else
           {
@@ -200,18 +214,46 @@
                 echo"<p> Product Code: $productid </p>";
                 echo"<p> $description </p>";
 
-                  for($x=1;$x<=$rating;$x++) {
-                echo "<span class='fa fa-star checked' aria-hidden='true'></span>";
-            }
-            if (strpos($rating,'.')) {
-                echo "<span class= 'fa fa-star-half-o fa-sm checked' aria-hidden='true'></span>";
+                 if(!is_null($rating)){
+              if($rating==5.0)
+              {
+                for($i=0;$i<5;$i++) {
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+              else
+              {
+                  if($rating==0.0 || $rating==1.0 || $rating==2.0 || $rating==3.0 || $rating==4.0)
+                  {
+                    for($x=0;$x<$rating;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+                 else
+                 {
+                  for($x=0;$x<$rating-1;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+
+                 }
+
+                
+                
+              if ($rating-$x!=0) {
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
                 $x++;
-            }
-            while ($x<=5) {
-                echo "<span class= 'fa fa-star-o checked' aria-hidden='true'></span>";
-                $x++;
-            } 
+              }
+
+              while ($x<5) {
+                 echo "<span class= 'fa fa-star-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 $x++;
+               } 
+              }
              echo " ".$rating;
+            }
+             
                 echo"<p class= 'price'> $price $ </p>";
                 echo "<p><b>Brand: </b> $brand </p>";
                 echo"<label>Count  </label>";
@@ -359,28 +401,40 @@ WHERE U.user_id = OB.user_id AND OB.user_id=C.user_id AND R.user_id = U.user_id 
               if($user_rating==5.0)
               {
                 for($i=0;$i<5;$i++) {
-                echo "<span class='fa fa-star fa-xs checked' aria-hidden='true'></span>";
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
                  }
                }
               else
               {
+                  if($user_rating==0.0 || $user_rating==1.0 || $user_rating==2.0 || $user_rating==3.0 || $user_rating==4.0)
+                  {
                     for($x=0;$x<$user_rating;$x++) {
-                echo "<span class='fa fa-star fa-xs checked' aria-hidden='true'></span>";
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
+               }
+                 else
+                 {
+                  for($x=0;$x<$user_rating-1;$x++) {
+                 
+                echo "<span class='fa fa-star fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
+                 }
 
+                 }
 
-                }
+                
                 
               if ($user_rating-$x!=0) {
-                echo "<span class= 'fa fa-star-half-o fa-xs checked' aria-hidden='true'></span>";
+                echo "<span class= 'fa fa-star-half-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
                 $x++;
               }
 
               while ($x<5) {
-                 echo "<span class= 'fa fa-star-o fa-xs checked' aria-hidden='true'></span>";
+                 echo "<span class= 'fa fa-star-o fa-xs checked' style='Color:orange' aria-hidden='true'></span>";
                  $x++;
                } 
               }
-             
+             echo " ".$user_rating;
             }
               echo"</div>";
             }
