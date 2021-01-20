@@ -113,13 +113,14 @@
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
               $product_id =$row['product_id'];
+              $product_picture =$row['product_picture'];
              
               
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-              echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
+              echo      "</div><img src=$product_picture alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
@@ -264,7 +265,7 @@
     $rating = $_POST['rating'];
     $order = $_POST['orderby'];
 
-    $Query_string = "SELECT product.product_name, product.product_description, product.price, product.brand, product.product_picture, product.rating FROM product, productcategory, category WHERE product.product_id = productcategory.product_id AND productcategory.category_id = category.category_id";
+    $Query_string = "SELECT product.product_id, product.product_picture, product.product_name, product.product_description, product.price, product.brand, product.product_picture, product.rating FROM product, productcategory, category WHERE product.product_id = productcategory.product_id AND productcategory.category_id = category.category_id";
     if($category != 'default')
     {
       $Query_string = $Query_string ." AND category.category_name = \"$category\"";
@@ -306,12 +307,47 @@
         $price = $row['price'];
         $brand = $row['brand'];
         $product_rating = $row['rating'];
+        $id=$row['product_id'];
+        $product_picture = $row['product_picture'];
+
+        $recommend = false;
+       $recommend_new = false;
+
+       //The products user has purchased
+      $purchased_result = mysqli_query($db, "SELECT OB.product_id
+                                             FROM orderedbasketproducts OB
+                                             WHERE OB.user_id = $user_id
+                                             GROUP BY OB.product_id");
+       while($row2 = mysqli_fetch_assoc($purchased_result))
+       {
+         if($id==$row2['product_id'])
+           $recommend=true;
+
+       }
+       
+       //The products that user has not bought but belong to categories user have purchased from 
+      $products_from_same_categories = mysqli_query($db, "SELECT PC.product_id
+FROM productcategory PC
+WHERE PC.category_id IN (SELECT PC2.category_id
+                         FROM orderedbasketproducts OB, productcategory PC2
+                         WHERE OB.user_id = $user_id AND OB.product_id = PC2.product_id)  AND PC.product_id NOT IN (SELECT OB2.product_id
+                                             FROM orderedbasketproducts OB2
+                                             WHERE OB2.user_id = $user_id
+                                             GROUP BY OB2.product_id)");
+
+        while ($row3 = mysqli_fetch_assoc($products_from_same_categories))
+       {
+         if($id==$row3['product_id'])
+           $recommend_new=true;
+
+       }    
+
 
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
         echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
         echo   "<div class='media-body order-2 order-lg-1'>";
-        echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
+        echo      "</div><img src=$product_picture alt='Generic placeholder image' width='200' class='ml-lg-5 order-1 order-lg-2'>";
         echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
          if(!is_null($product_rating)){
               if($product_rating==5.0)
@@ -352,6 +388,15 @@
               }
              echo " ".$product_rating;
             }
+
+            if($recommend==true)
+        {
+          echo "<br>"."<i style='Color:tomato'> Out of $product_name? Refill your stock! </i>"; 
+        }
+        else if ($recommend_new==true)
+        {
+          echo "<br>"."<i style='Color:DarkGreen'> You might be interested in this, based on your previous preferences </i>"; 
+        }
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
         echo "<div class='mt-0 font-weight-bold mb-2'>
                       <h6 class='font-weight-bold my-2'>$price $</h6>
@@ -373,10 +418,21 @@
                       <br>
                       </br>";
 
-      echo "<button class='w-10 btn btn-lg btn-primary' type='submit sign in'>Add to cart</button>";
-    echo"<form action='productinfo.php' method='POST'>";
-     echo"<button type='submit sign in' class='w-10 btn btn-lg btn-primary' name='go' value='$product_name' >Go to Product </button>";
-     echo"</form>";
+     echo "<div class='form-group' align='center'>
+                        <form  action='addToCard.php' method='POST'>
+                        
+                        <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>
+                      
+                        <button type='submit sign in' style=' Background:OrangeRed; Color:white' class='w-10 btn btn-m btn-primary' name='product_id' value='$id'  >Add to Cart </button>
+                        </form>
+                      </div>
+           <div class='form-group' align='center'>
+           <br>
+        <form action='productinfo.php' method='POST'>
+      <button type='submit sign in' style=' Background:RoyalBlue; Color:white' class='w-10 btn btn-m btn-primary' name='go' value='$product_name' >Go to Product </button>
+      </form>
+       </div>
+       <br>";
       
 
         echo  "</div>";
