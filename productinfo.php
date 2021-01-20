@@ -200,6 +200,7 @@
                 $brand = $row['brand'];
                 $rating = $row['rating'];
                 $product_picture = $row['product_picture'];
+                $id = $productid;
               }
 
                  echo"<img src=$product_picture class='d-block w-100' alt='First slide'>
@@ -263,11 +264,20 @@
              
                 echo"<p class= 'price'> $price $ </p>";
                 echo "<p><b>Brand: </b> $brand </p>";
-                echo"<label>Count  </label>";
-                echo"<input id = 'amount' type='text' value='1'>";
+               // echo"<label>Count  </label>";
+               // echo"<input id = 'amount' type='text' value='1'>";
                 
                
-        echo"<button type='button' class='btn btn-default cart btn-primary'>Add to cart</button>";
+        echo"<div class='form-group' align='center'>
+                        <form  action='addToCard.php' method='POST'>
+                        
+                        <input style='width: 50px' value = 1 class='form-control my-2' name='countt' type='text' placeholder='countt' aria-label='Amount'>
+                      
+                        <button type='submit sign in' style=' Background:OrangeRed; Color:white' class='w-10 btn btn-m btn-primary' name='product_id' value='$id'  >Add to Cart </button>
+                        </form>
+                      </div>
+         
+       <br>";
         
          echo"</div>";
          echo"</div>";
