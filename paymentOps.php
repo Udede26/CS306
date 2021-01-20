@@ -54,6 +54,9 @@ while ($row10 = mysqli_fetch_assoc($result_basketproducts)) {
      $sql_orderedbasket = "INSERT INTO OrderedBasketProducts(basket_id, user_id, order_id, product_id, total_price, counttt)
 VALUES($basket, $var1, $latest_order_id, $product_id_basket, $total_price, $counttt)";
 mysqli_query($db, $sql_orderedbasket);
+
+$sql_statement_delete = "DELETE FROM  basketproducts WHERE basket_id = $basket AND product_id = $product_id_basket";
+mysqli_query($db, $sql_statement_delete);
    
 }
 
@@ -64,6 +67,16 @@ mysqli_query($db, $sql_orderedbasket);
 $sql_invoice = "INSERT INTO Invoice(invoice_date, invoice_address, invoice_sum, order_id, user_id)
 VALUES (CURDATE(),  '$var_invoice_address', $sum,  $latest_order_id, $var1)";
 mysqli_query($db, $sql_invoice);
+
+
+$sql_update_basket= "UPDATE Basket
+                     SET total_cost = 0, num_of_products=0
+                     WHERE user_id=$var1";
+
+ mysqli_query($db, $sql_update_basket);
+
+
+
 
 header('Location: home_after_payment.php');
 
