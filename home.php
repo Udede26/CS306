@@ -116,13 +116,14 @@
               $count_sag_ust = $row['countt'];
               $total_sag_ust =$row['total_cost'];
               $product_id = $row['product_id'];
+              $product_picture = $row['product_picture'];
               
 
               echo "<li class='list-group-item'>";
               echo "<!-- Custom content-->";
               echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
               echo   "<div class='media-body order-2 order-sm-1'>";
-              echo      "</div><img src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
+              echo      "</div><img src=$product_picture alt='Generic placeholder image' width='100' class='ml-lg-5 order-1 order-lg-2'>";
               echo      "<h5 class='mt-0 font-weight-bold mb-2'>$product_name</h5>";
               echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
               echo "<div class='mt-0 font-weight-bold mb-2'>
@@ -140,7 +141,7 @@
                 
                   </div></li>";
             }
-            echo " "."Total: $total_sag_ust$";
+            echo " "."Total: $$total_sag_ust";
           }
           else
           {
@@ -200,9 +201,10 @@
               $brand = $row['brand'];
               $product_rating = $row['rating'];
               $id = $row['product_id'];
+              $product_picture = $row['product_picture'];
 
               echo "<div class='col'> <div class='card shadow-sm'>
-              <img class='bd-placeholder-img card-img-top' width='100%' height='225' src='https://drive.google.com/uc?export=view&id=1MbY3FN3HvBnFjl3HQROjgaXkBq5nhq_V' role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
+              <img class='bd-placeholder-img card-img-top' width='100%' height='400' src=$product_picture role='img' aria-label='Placeholder: Thumbnail' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Placeholder</title><rect width='100%' height='100%' fill='#55595c'/><text x='50%' y='50%' fill='#eceeef' dy='.3em'></text></img>
               <form class='card-body'>
               <h3 class='text-center strong'> $product_name</h3>
              
