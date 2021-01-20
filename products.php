@@ -269,6 +269,38 @@
         $product_picture = $row['product_picture'];
         $product_rating = $row['rating'];
 
+        $recommend = false;
+       $recommend_new = false;
+
+       //The products user has purchased
+      $purchased_result = mysqli_query($db, "SELECT OB.product_id
+                                             FROM orderedbasketproducts OB
+                                             WHERE OB.user_id = $user_id
+                                             GROUP BY OB.product_id");
+       while($row2 = mysqli_fetch_assoc($purchased_result))
+       {
+         if($id==$row2['product_id'])
+           $recommend=true;
+
+       }
+       
+       //The products that user has not bought but belong to categories user have purchased from 
+      $products_from_same_categories = mysqli_query($db, "SELECT PC.product_id
+FROM productcategory PC
+WHERE PC.category_id IN (SELECT PC2.category_id
+                         FROM orderedbasketproducts OB, productcategory PC2
+                         WHERE OB.user_id = $user_id AND OB.product_id = PC2.product_id)  AND PC.product_id NOT IN (SELECT OB2.product_id
+                                             FROM orderedbasketproducts OB2
+                                             WHERE OB2.user_id = $user_id
+                                             GROUP BY OB2.product_id)");
+
+        while ($row3 = mysqli_fetch_assoc($products_from_same_categories))
+       {
+         if($id==$row3['product_id'])
+           $recommend_new=true;
+
+       }    
+
         echo "<li class='list-group-item'>";
         echo "<!-- Custom content-->";
         echo "<div class='media align-items-lg-center flex-column flex-lg-row p-3'>";
@@ -314,6 +346,15 @@
               }
              echo " ".$product_rating;
             }
+
+            if($recommend==true)
+        {
+          echo "<br>"."<i> Out of $product_name? Refill your stock! </i>"; 
+        }
+        else if ($recommend_new==true)
+        {
+          echo "<br>"."<i> You might be interested in this, based on your previous preferences </i>"; 
+        }
 
         echo       "<p class='font-italic text-muted mb-0 small'>$description</p>";
         echo "<div class='mt-0 font-weight-bold mb-2'>
